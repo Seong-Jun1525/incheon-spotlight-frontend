@@ -15,7 +15,16 @@
 | 상태·데이터 | Zustand, TanStack Query |
 | 다국어 | i18next (한국어, 영어, 일본어, 중국어) |
 | 배포 | Docker, Nginx |
-| 외부 연동 | 한국관광공사 TourAPI, 기상청 날씨, TMAP 경로, AI 코스·채팅 API |
+| 외부 연동 | 한국관광공사 TourAPI, 기상청 날씨, TMAP 경로, Ollama |
+
+## AI 모델
+
+추론은 Ollama에서 실행합니다. 운영 기본 모델은 아래와 같습니다.
+
+| 용도 | 모델 |
+| --- | --- |
+| 여행 상담, 추천 코스, 여행 일정 | qwen3.5:4b |
+| 방문 사진 검토 | qwen2.5vl:3b |
 
 ## 구현된 기능
 
