@@ -4,7 +4,7 @@
 
 ## 운영 환경
 
-- 운영 URL: https://incheon-spotlight.tail59297d.ts.net/
+- 배포 URL: https://incheon-spotlight.tail59297d.ts.net/
 
 ## 핵심 기술 스택
 
