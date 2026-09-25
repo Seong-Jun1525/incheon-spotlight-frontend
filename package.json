@@ -1,0 +1,49 @@
+{
+  "name": "incheon-spotlight",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build && node scripts/verify-cesium-assets.mjs",
+    "lint": "eslint .",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@react-three/drei": "^10.7.7",
+    "@react-three/fiber": "^9.6.0",
+    "@react-three/postprocessing": "^3.0.4",
+    "@tanstack/react-query": "^5.100.5",
+    "axios": "^1.15.2",
+    "cesium": "^1.143.0",
+    "clsx": "^2.1.1",
+    "framer-motion": "^12.38.0",
+    "gsap": "^3.15.0",
+    "i18next": "^26.4.2",
+    "lucide-react": "^1.11.0",
+    "react": "^19.2.5",
+    "react-dom": "^19.2.5",
+    "react-i18next": "^17.0.14",
+    "react-icons": "^5.6.0",
+    "react-router-dom": "^7.14.2",
+    "react-toastify": "^11.1.0",
+    "sass": "^1.99.0",
+    "swiper": "^12.1.3",
+    "three": "^0.184.0",
+    "zustand": "^5.0.12"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "@types/react": "^19.2.14",
+    "@types/react-dom": "^19.2.3",
+    "@vitejs/plugin-react": "^6.0.1",
+    "eslint": "^10.2.1",
+    "eslint-plugin-react-hooks": "^7.1.1",
+    "eslint-plugin-react-refresh": "^0.5.2",
+    "globals": "^17.5.0",
+    "gltfjsx": "^6.5.3",
+    "vite": "^8.0.10",
+    "vite-plugin-static-copy": "^4.1.1",
+    "vite-plugin-svgr": "^5.2.0"
+  }
+}

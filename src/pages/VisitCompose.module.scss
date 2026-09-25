@@ -1,0 +1,539 @@
+// VisitCompose.module.scss — 방문 인증 작성 화면 스타일
+// - 인증 절차 스텝, 폼 섹션과 입력 행, 사진 업로드 영역 레이아웃 정의
+// - 우측 이용 안내·보상 안내 aside 카드 스타일 포함
+
+@use '../styles/variables' as *;
+
+.page {
+  width: min(1120px, calc(100% - 48px));
+  margin: 0 auto;
+  padding: 24px 0 72px;
+  color: $text-primary;
+  line-height: 1.6;
+
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  a:focus-visible,
+  button:focus-visible,
+  input:focus-visible,
+  select:focus-visible,
+  textarea:focus-visible,
+  summary:focus-visible {
+    outline: 2px solid $focus;
+    outline-offset: 3px;
+  }
+}
+
+.breadcrumb {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  color: $text-secondary;
+  font-size: 13px;
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+  a:hover {
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+  [aria-current] {
+    color: $text-primary;
+    font-weight: 600;
+  }
+}
+
+.header {
+  padding: 32px 0 28px;
+
+  h1 {
+    margin: 5px 0 10px;
+    color: $primary-strong;
+    font-size: clamp(28px, 3vw, 36px);
+    font-weight: 750;
+    letter-spacing: -0.04em;
+    line-height: 1.3;
+  }
+
+  > p:last-child {
+    margin: 0;
+    color: $text-secondary;
+    font-size: 15px;
+  }
+}
+
+.eyebrow {
+  margin: 0;
+  color: $primary;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.process {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin: 0 0 36px;
+  padding: 0;
+  border: 1px solid $border;
+  background: $surface;
+  list-style: none;
+
+  li {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 20px 28px;
+    font-size: 14px;
+    font-weight: 650;
+  }
+
+  li + li {
+    border-left: 1px solid $border;
+  }
+  svg {
+    flex-shrink: 0;
+    color: $primary;
+  }
+}
+
+.processNumber {
+  color: $primary;
+  font-size: 12px;
+  font-weight: 750;
+}
+.process .processArrow {
+  position: absolute;
+  right: -10px;
+  z-index: 1;
+  background: $surface;
+  color: $border-strong;
+}
+.layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 260px;
+  align-items: start;
+  gap: 32px;
+}
+.form,
+.section,
+.control {
+  min-width: 0;
+}
+.section + .section {
+  margin-top: 32px;
+}
+
+.sectionHeading {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px 16px;
+  padding-bottom: 12px;
+  border-bottom: 2px solid $primary-strong;
+
+  h2 {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 0;
+    font-size: 19px;
+    font-weight: 700;
+    letter-spacing: -0.035em;
+  }
+
+  h2 > span:first-child {
+    color: $primary;
+    font-size: 14px;
+    font-weight: 750;
+  }
+}
+
+.requiredNote,
+.optional,
+.photoCount {
+  margin: 0;
+  font-size: 12px;
+  color: $text-secondary;
+}
+.requiredNote span,
+.label > span,
+.sectionHeading .required {
+  color: $danger;
+  font-size: 14px;
+}
+.photoCount {
+  font-variant-numeric: tabular-nums;
+}
+.fields {
+  border-bottom: 1px solid $border;
+  background: $surface;
+}
+.row {
+  display: grid;
+  grid-template-columns: 140px minmax(0, 1fr);
+}
+.row + .row {
+  border-top: 1px solid $border;
+}
+
+.label {
+  display: flex;
+  align-items: flex-start;
+  gap: 5px;
+  margin: 0;
+  padding: 24px 18px;
+  background: $surface-muted;
+  font-size: 14px;
+  font-weight: 650;
+}
+
+.control {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 8px;
+  padding: 16px 20px;
+
+  select,
+  input[type='date'],
+  textarea {
+    width: 100%;
+    min-width: 0;
+    min-height: 46px;
+    padding: 10px 12px;
+    border: 1px solid $border-strong;
+    border-radius: 3px;
+    background: $surface;
+    color: $text-primary;
+    font: inherit;
+    font-size: 14px;
+  }
+
+  input[type='date'] {
+    max-width: 260px;
+  }
+  select:disabled {
+    background: $surface-muted;
+    color: $text-secondary;
+    opacity: 1;
+    cursor: not-allowed;
+  }
+  textarea {
+    min-height: 126px;
+    line-height: 1.7;
+    resize: vertical;
+  }
+  textarea::placeholder {
+    color: $text-secondary;
+  }
+}
+
+.hint {
+  margin: 0;
+  color: $text-secondary;
+  font-size: 12px;
+  line-height: 1.65;
+}
+.placeGuide {
+  padding: 12px 14px;
+  border-left: 3px solid $primary;
+  background: $primary-soft;
+  color: $primary-strong;
+  font-size: 13px;
+
+  p {
+    margin: 4px 0 0;
+  }
+}
+
+.photoBody {
+  padding: 20px;
+  border-bottom: 1px solid $border;
+  background: $surface;
+}
+.photoIntro {
+  margin: 0 0 16px;
+  color: $text-secondary;
+  font-size: 14px;
+}
+.photoGuide {
+  margin-top: 16px;
+  color: $text-secondary;
+  font-size: 13px;
+
+  summary {
+    min-height: 36px;
+    padding: 6px 0;
+    cursor: pointer;
+    font-weight: 600;
+  }
+  summary svg {
+    margin: 0 6px -3px 3px;
+  }
+  ul {
+    margin: 6px 0 0;
+    padding: 12px 14px 12px 30px;
+    background: $surface-muted;
+  }
+  li + li {
+    margin-top: 6px;
+  }
+}
+
+.counter {
+  margin: 0;
+  text-align: right;
+  color: $text-secondary;
+  font-size: 12px;
+  font-variant-numeric: tabular-nums;
+}
+.check {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 7px 0;
+  color: $text-primary;
+  font-size: 14px;
+  cursor: pointer;
+
+  input {
+    flex: 0 0 auto;
+    width: 18px;
+    height: 18px;
+    margin: 2px 0 0;
+    accent-color: $action;
+  }
+}
+
+.actions {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  padding-top: 28px;
+}
+.cancel,
+.submit {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  min-height: 50px;
+  padding: 12px 24px;
+  border: 1px solid $border-strong;
+  border-radius: 3px;
+  font: inherit;
+  font-size: 15px;
+  font-weight: 650;
+  cursor: pointer;
+
+  &:disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+  }
+}
+.cancel {
+  min-width: 110px;
+  background: $surface;
+  color: $text-primary;
+}
+.cancel:hover:not(:disabled) {
+  background: $surface-muted;
+}
+.submit {
+  min-width: 200px;
+  border-color: $action;
+  background: $action;
+  color: $text-on-accent;
+}
+.submit:hover:not(:disabled) {
+  background: $action-hover;
+  border-color: $action-hover;
+}
+
+.aside {
+  display: grid;
+  gap: 20px;
+  padding-top: 1px;
+}
+.guideCard,
+.rewardCard {
+  padding: 22px 20px;
+  border: 1px solid $border;
+  background: $surface;
+
+  h2 {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 0;
+    font-size: 16px;
+    font-weight: 700;
+  }
+  h2 svg {
+    color: $primary;
+  }
+}
+.guideList {
+  display: grid;
+  gap: 16px;
+  margin: 20px 0;
+  padding: 0;
+  list-style: none;
+
+  li {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    color: $text-secondary;
+    font-size: 13px;
+    line-height: 1.75;
+  }
+  svg {
+    flex-shrink: 0;
+    margin-top: 3px;
+    color: $primary;
+  }
+}
+.resultLink {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  padding-top: 14px;
+  border-top: 1px solid $border;
+  color: $primary-strong;
+  font-size: 13px;
+  font-weight: 650;
+  text-decoration: none;
+}
+.resultLink:hover {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.rewardCard {
+  border-color: transparent;
+  background: $primary-soft;
+}
+.rewardCard h2 {
+  margin-top: 5px;
+  color: $primary-strong;
+}
+.rewardItem {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  margin-top: 20px;
+
+  > svg {
+    flex-shrink: 0;
+    margin-top: 2px;
+    color: $primary;
+  }
+  strong {
+    color: $primary-strong;
+    font-size: 13px;
+    font-weight: 650;
+  }
+  p {
+    margin: 4px 0 0;
+    color: $text-secondary;
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 1000px) {
+  .layout {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .aside {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .process li {
+    padding: 18px 14px;
+    gap: 7px;
+  }
+}
+
+@media (max-width: 600px) {
+  .page {
+    width: calc(100% - 32px);
+    padding: 20px 0 40px;
+  }
+  .breadcrumb {
+    gap: 5px;
+    font-size: 12px;
+  }
+  .header {
+    padding: 26px 0 24px;
+  }
+  .header > p:last-child {
+    font-size: 14px;
+  }
+  .process {
+    margin-bottom: 28px;
+  }
+  .process li {
+    flex-direction: column;
+    gap: 6px;
+    padding: 14px 8px;
+    text-align: center;
+    font-size: 12px;
+    word-break: keep-all;
+  }
+  .process li > svg:not(.processArrow) {
+    display: none;
+  }
+  .process .processArrow {
+    top: calc(50% - 9px);
+  }
+  .sectionHeading h2 {
+    gap: 8px;
+    font-size: 18px;
+  }
+  .section + .section {
+    margin-top: 28px;
+  }
+  .row {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .label {
+    padding: 16px 16px 0;
+    background: $surface;
+  }
+  .control {
+    padding: 10px 16px 16px;
+  }
+  .control input[type='date'] {
+    max-width: none;
+  }
+  .photoBody {
+    padding: 16px;
+  }
+  .actions {
+    gap: 8px;
+  }
+  .cancel {
+    min-width: 0;
+    flex: 1;
+  }
+  .submit {
+    min-width: 0;
+    flex: 2;
+    padding: 12px;
+  }
+  .aside {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 16px;
+  }
+}

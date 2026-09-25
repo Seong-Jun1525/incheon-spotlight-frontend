@@ -1,0 +1,43 @@
+// Button.module.scss — Button 컴포넌트 스타일
+// - .btn 공통 모양(라운드·패딩·누름 효과·focus-visible 아웃라인)
+// - .primary 강조 액션, .ghost 투명 배경 변형 제공
+@use '../../styles/variables' as *;
+
+.btn {
+  font: inherit;
+  border-radius: 12px;
+  padding: 8px 14px;
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition: background 0.15s ease, border-color 0.15s ease, transform 0.1s ease;
+
+  &:active {
+    transform: translateY(1px);
+  }
+
+  &:focus-visible {
+    outline: 2px solid $focus;
+    outline-offset: 2px;
+  }
+}
+
+.primary {
+  color: $text-on-accent;
+  background: $action;
+  border-color: $action;
+
+  &:hover {
+    background: $action-hover;
+  }
+}
+
+.ghost {
+  color: $text-secondary;
+  background: transparent;
+  border-color: transparent;
+
+  &:hover {
+    color: $primary-strong;
+    background: $primary-soft;
+  }
+}

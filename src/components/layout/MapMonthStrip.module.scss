@@ -1,0 +1,125 @@
+// MapMonthStrip.module.scss — 지도 상단 월 선택 스트립(MapMonthStrip) 스타일
+// - .bar/.label로 한 줄 바 레이아웃과 캘린더 라벨·행사 수 배지를 구성
+// - .scroller는 가로 스크롤 영역, .yearMark는 연도 구분 표시
+// - .chip/.active로 월 칩의 기본·선택 상태를 정의
+@use '../../styles/variables' as *;
+
+.bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: max-content;
+  min-width: 0;
+  max-width: 100%;
+  height: 44px;
+  padding: 4px 6px 4px 10px;
+  box-sizing: border-box;
+  overflow: hidden;
+  border-radius: 14px;
+  border: 1px solid $border;
+  background: $surface;
+  box-shadow: $shadow-soft;
+  color: $text-primary;
+}
+
+.label {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin: 0;
+  padding-right: 10px;
+  border-right: 1px solid $border;
+  color: $text-secondary;
+  font-size: 11px;
+  font-weight: 700;
+  white-space: nowrap;
+
+  svg {
+    flex-shrink: 0;
+    color: #c96d00;
+  }
+
+  em {
+    font-style: normal;
+    font-weight: 700;
+    color: $text-muted;
+  }
+}
+
+.scroller {
+  flex: 0 1 auto;
+  width: max-content;
+  min-width: 0;
+  max-width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  overflow-x: auto;
+  overscroll-behavior-inline: contain;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+.yearMark {
+  flex-shrink: 0;
+  padding: 0 4px 0 8px;
+  font-size: 10px;
+  font-weight: 700;
+  color: $text-muted;
+  letter-spacing: 0.02em;
+}
+
+.chip {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 34px;
+  height: 32px;
+  padding: 0 9px;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: $text-secondary;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+
+  &:hover {
+    background: $surface-muted;
+    color: $text-primary;
+  }
+
+  &:focus-visible {
+    outline: 2px solid $focus;
+    outline-offset: 2px;
+  }
+}
+
+.active {
+  background: #fff16e;
+  color: #4d4314;
+
+  &:hover {
+    background: #fff16e;
+    color: #4d4314;
+  }
+}
+
+@media (max-width: 900px) {
+  .bar {
+    height: 40px;
+    padding: 3px 5px 3px 8px;
+  }
+
+  .chip {
+    min-width: 32px;
+    height: 28px;
+    padding: 0 8px;
+  }
+}

@@ -1,0 +1,43 @@
+// Skeleton.module.scss — 로딩 스켈레톤 뼈대·시머 애니메이션
+@use '../../styles/variables' as *;
+
+.root { width: 100%; min-width: 0; }
+.shapes, .items { display: grid; gap: 16px; min-width: 0; width: 100%; }
+.bone {
+  display: block;
+  position: relative;
+  overflow: hidden;
+  height: 11px;
+  border-radius: 6px;
+  background: $gray-200;
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--surface) 55%, transparent), transparent);
+    transform: translateX(-100%);
+    animation: sweep 1.8s ease-in-out infinite;
+  }
+}
+.item { display: flex; align-items: center; gap: 16px; min-width: 0; }
+.image { flex: 0 0 76px; width: 76px; height: 76px; border-radius: 12px; }
+.lines { display: grid; gap: 12px; flex: 1; min-width: 0; }
+.title { height: 16px; width: 65%; }
+.short { width: 42%; }
+.cards .items { grid-template-columns: repeat(auto-fit, minmax(min(100%, 210px), 1fr)); }
+.cards .item, .detail .item, .page .item { display: grid; align-content: start; }
+.cards .image, .detail .image, .page .image { width: 100%; height: auto; aspect-ratio: 16 / 10; }
+.cards .item { padding: 14px; border: 1px solid $border; border-radius: 16px; }
+.detail .lines, .page .lines { padding: 8px 0 20px; gap: 18px; }
+.detail .title, .page .title { height: 28px; }
+.text .items { gap: 20px; }
+.map, .map .shapes { height: 100%; min-height: 320px; }
+.mapShape { height: 100%; min-height: 320px; border-radius: 18px; }
+.page { padding: 28px; box-sizing: border-box; }
+.page .shapes { grid-template-columns: minmax(240px, 360px) minmax(0, 1fr); min-height: 65vh; gap: 28px; }
+.srOnly { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; border: 0; }
+@keyframes sweep { to { transform: translateX(100%); } }
+@media (prefers-reduced-motion: reduce) { .bone::after { animation: none; } }
+@media (max-width: 680px) { .page { padding: 16px; } .page .shapes { grid-template-columns: 1fr; } }
+
+.mediaShape { height: 180px; border-radius: 0; }

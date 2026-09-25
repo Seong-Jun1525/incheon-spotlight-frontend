@@ -1,0 +1,149 @@
+// DistrictSpotlightPanel.module.scss — DistrictSpotlightPanel 우측 슬라이드 패널 스타일
+// - root/open: 화면 밖으로 밀어둔 기본 위치와 열릴 때의 translateX 전환
+// - placeBtn/active: 명소 목록 버튼과 선택된 항목 강조
+// - 640px 이하에서는 하단 고정 시트 형태로 배치 전환
+
+@use '../../styles/variables' as *;
+
+.root {
+  pointer-events: auto;
+  position: fixed;
+  top: clamp(92px, 14vh, 140px);
+  right: 0;
+  width: min(320px, 92vw);
+  max-height: min(520px, 58vh);
+  transform: translateX(104%);
+  opacity: 0;
+  visibility: hidden;
+  transition:
+    transform 0.26s cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 0.2s ease,
+    visibility 0.2s;
+  z-index: 42;
+}
+
+.open {
+  transform: translateX(0);
+  opacity: 1;
+  visibility: visible;
+}
+
+.inner {
+  margin: 0 12px 0 10px;
+  padding: 14px;
+  border-radius: 18px;
+  border: 1px solid $overlay-border;
+  background: $overlay-bg;
+  backdrop-filter: blur(18px);
+  box-shadow:
+    -8px 0 36px rgba(15, 23, 42, 0.12),
+    0 14px 40px rgba(15, 23, 42, 0.1);
+  display: flex;
+  flex-direction: column;
+  max-height: min(508px, 56vh);
+  box-sizing: border-box;
+}
+
+.head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+
+.title {
+  margin: 0;
+  font-size: 17px;
+  font-weight: 800;
+  color: $ink;
+  letter-spacing: -0.02em;
+}
+
+.lead {
+  margin: 0 0 10px;
+  font-size: 12px;
+  line-height: 1.45;
+  color: $ink-soft;
+}
+
+.close {
+  flex-shrink: 0;
+  border-radius: 12px !important;
+  background: rgba(241, 245, 249, 0.9) !important;
+}
+
+.list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  overflow-y: auto;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  scrollbar-width: thin;
+}
+
+.empty {
+  font-size: 13px;
+  line-height: 1.55;
+  color: $ink-soft;
+  padding: 8px 4px;
+}
+
+.placeBtn {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 4px;
+  width: 100%;
+  border-radius: 14px;
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  padding: 10px 12px;
+  background: rgba(255, 255, 255, 0.7);
+  text-align: left;
+  cursor: pointer;
+  font: inherit;
+  transition:
+    border-color 0.12s ease,
+    box-shadow 0.12s ease,
+    transform 0.12s ease;
+
+  &:hover {
+    border-color: rgba(56, 189, 248, 0.6);
+    box-shadow: 0 6px 18px rgba(8, 105, 155, 0.12);
+  }
+}
+
+.placeName {
+  font-size: 14px;
+  font-weight: 700;
+  color: $ink;
+}
+
+.placeCat {
+  font-size: 12px;
+  font-weight: 600;
+  color: #0369a1;
+}
+
+.active {
+  border-color: rgba(245, 158, 11, 0.9);
+  background: rgba(254, 243, 199, 0.45);
+}
+
+@media (max-width: 640px) {
+  .root {
+    top: auto;
+    bottom: calc(120px + env(safe-area-inset-bottom, 0px));
+    right: 0;
+    left: auto;
+    width: min(100vw - 20px, 340px);
+    max-height: 40vh;
+  }
+
+  .inner {
+    max-height: 38vh;
+  }
+}

@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <script>
+      (function () {
+        try {
+          var pref = localStorage.getItem('incheon-spotlight-color-mode') || 'system';
+          var dark =
+            pref === 'high-contrast' ||
+            (pref !== 'light' &&
+              window.matchMedia('(prefers-color-scheme: dark)').matches);
+          var theme = dark ? 'dark' : 'light';
+          var root = document.documentElement;
+          root.setAttribute('data-theme', theme);
+          root.setAttribute('data-krds-mode', dark ? 'high-contrast' : 'light');
+          root.style.colorScheme = theme;
+        } catch (e) {}
+      })();
+    </script>
+    <link rel="icon" href="%BASE_URL%favicon.ico" sizes="any" />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="%BASE_URL%favicon-32x32.png"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="%BASE_URL%apple-touch-icon.png"
+    />
+    <meta name="theme-color" content="#f8981d" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover"
+    />
+    <title>인천스팟</title>
+    <meta name="app-release" content="%VITE_APP_RELEASE%" />
+  </head>
+  <body>
+    <div id="root"></div>
+    <script
+      type="module"
+      src="/src/main.jsx"
+    ></script>
+  </body>
+</html>

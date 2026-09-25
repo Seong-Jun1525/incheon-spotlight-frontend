@@ -1,0 +1,27 @@
+// mainPage.scss — 메인 탐색 화면 전역 높이·오버레이 z-index 보정
+@use 'variables' as *;
+
+// 전역 #root·body와 메인 100vh 뷰 정합
+.main-page {
+  width: 100%;
+  min-height: 100vh;
+  min-height: 100dvh;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  color: $ink;
+  font-family: system-ui, 'Segoe UI', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;
+}
+
+// 상세/모달 오버레이 z-index(30) — 후속 화면
+.ui-modal-layer {
+  z-index: 30;
+}
+
+.three-canvas {
+  z-index: 0;
+}
+
+.ui-overlay {
+  z-index: 10;
+}

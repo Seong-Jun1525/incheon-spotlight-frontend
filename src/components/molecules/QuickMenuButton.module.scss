@@ -1,0 +1,46 @@
+// QuickMenuButton.module.scss — 퀵메뉴 버튼(QuickMenuButton) 스타일
+// - .root로 아이콘과 라벨을 세로로 쌓는 글래스 카드 버튼과 호버·액티브 상태를 정의
+// - .icon/.label로 아이콘 색과 하단 라벨 텍스트 정렬을 구분
+@use '../../styles/variables' as *;
+
+.root {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 100px;
+  border-radius: 16px;
+  border: 1px solid $glass-border;
+  background: $glass-bg;
+  backdrop-filter: blur(16px);
+  box-shadow: 0 8px 22px rgba(15, 23, 42, 0.1);
+  color: #334155;
+  cursor: pointer;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 700;
+  padding: 12px 8px;
+  transition: background 0.15s ease, box-shadow 0.15s ease, transform 0.1s ease;
+
+  &:hover {
+    background: rgba(224, 242, 254, 0.95);
+    box-shadow: 0 10px 26px rgba(15, 23, 42, 0.14);
+    transform: translateY(-1px);
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+}
+
+.icon {
+  display: flex;
+  color: $sky-600;
+}
+
+.label {
+  text-align: center;
+  line-height: 1.2;
+  color: #334155;
+}

@@ -1,0 +1,545 @@
+// AiCourseStudio.module.scss — AiCourseStudio와 NearbyFoodPicker 공용 스타일
+// - .studio/.hero/.fieldset/.themes/.pills로 코스 생성 폼과 선택 상태(aria-pressed) 표현
+// - .result/.meta/.timeline/.rail로 추천 코스 결과와 정차지 타임라인 시각화
+// - .nearbyFood(.nearbyFoodCompact)/.cuisineChips는 주변 맛집 선택기 전용 스타일
+@use '../../styles/variables' as *;
+
+.studio {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  flex: 1;
+  min-height: 0;
+  overflow: auto;
+  overscroll-behavior: contain;
+  padding: 14px;
+}
+
+.hero {
+  padding: 16px 16px 14px;
+  border-radius: 18px;
+  color: $text-on-accent;
+  background:
+    radial-gradient(circle at 88% 12%, rgb(255 241 110 / 28%) 0%, transparent 34%),
+    radial-gradient(circle at 12% 88%, rgb(238 132 181 / 28%) 0%, transparent 40%),
+    linear-gradient(135deg, #123764 0%, $primary 58%, $accent 100%);
+
+  p,
+  span {
+    margin: 0;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    opacity: 0.86;
+  }
+
+  h3 {
+    margin: 6px 0 8px;
+    font-size: 1.28rem;
+    line-height: 1.3;
+    font-weight: 800;
+  }
+
+  em {
+    font-style: normal;
+    color: $yellow;
+  }
+}
+
+.fieldset {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  min-width: 0;
+
+  legend {
+    margin-bottom: 8px;
+    color: $text-muted;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.06em;
+  }
+}
+
+.themes {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.theme,
+.themeOn {
+  display: grid;
+  justify-items: start;
+  gap: 2px;
+  min-height: 78px;
+  padding: 10px;
+  border-radius: 14px;
+  text-align: left;
+  cursor: pointer;
+  color: $text-primary;
+  background: $surface;
+  border: 1px solid $border;
+
+  svg {
+    color: $accent;
+  }
+
+  strong {
+    font-size: 13px;
+  }
+
+  small {
+    color: $text-muted;
+    font-size: 11px;
+  }
+}
+
+.theme:hover,
+.themeOn {
+  border-color: $primary;
+  background: $primary-soft;
+}
+
+.row {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 10px;
+}
+
+.pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+
+  button {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1px;
+    min-height: 38px;
+    padding: 6px 10px;
+    border-radius: 999px;
+    border: 1px solid $border;
+    background: $surface;
+    color: $text-primary;
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: 700;
+
+    small {
+      font-size: 10px;
+      font-weight: 650;
+      color: $text-muted;
+    }
+
+    &[aria-pressed='true'] {
+      border-color: $action;
+      background: $action;
+      color: $text-on-accent;
+
+      small {
+        color: rgb(255 255 255 / 80%);
+      }
+    }
+
+    &:disabled {
+      opacity: 0.45;
+      cursor: not-allowed;
+    }
+
+    &[aria-pressed='true']:disabled {
+      opacity: 1;
+      cursor: default;
+    }
+  }
+}
+
+.note {
+  display: grid;
+  gap: 6px;
+
+  span {
+    color: $text-muted;
+    font-size: 11px;
+    font-weight: 800;
+  }
+
+  input {
+    min-height: 42px;
+    padding: 0 12px;
+    border: 1px solid $border;
+    border-radius: 12px;
+    background: $gray-50;
+    color: inherit;
+    font: inherit;
+    font-size: 13px;
+
+    &:focus {
+      outline: 2px solid $focus;
+      outline-offset: 1px;
+    }
+  }
+}
+
+.actions {
+  display: grid;
+  gap: 8px;
+
+  p {
+    margin: 0;
+    color: $text-muted;
+    font-size: 12px;
+    line-height: 1.45;
+  }
+}
+
+.primary,
+.secondary,
+.ghost {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 44px;
+  padding: 0 14px;
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.primary {
+  border: 0;
+  background: $action;
+  color: $text-on-accent;
+
+  &:hover {
+    background: $action-hover;
+  }
+
+  &:focus-visible {
+    outline: 3px solid $focus;
+    outline-offset: 3px;
+  }
+}
+
+.secondary {
+  border: 1px solid $primary;
+  background: $primary-soft;
+  color: $primary-strong;
+}
+
+.ghost {
+  border: 1px dashed $border-strong;
+  background: $gray-50;
+  color: $text-muted;
+
+  &:disabled {
+    cursor: not-allowed;
+  }
+}
+
+.error {
+  margin: 0;
+  padding: 10px 12px;
+  border-radius: 10px;
+  background: $danger-soft;
+  border: 1px solid $danger-border;
+  color: $danger;
+  font-size: 13px;
+}
+
+.skeleton {
+  display: grid;
+  gap: 8px;
+
+  span {
+    height: 54px;
+    border-radius: 14px;
+    background: linear-gradient(90deg, $gray-100, $gray-50, $gray-100);
+    background-size: 200% 100%;
+    animation: shimmer 1.2s linear infinite;
+  }
+}
+
+.result {
+  padding: 14px;
+  border: 1px solid $border;
+  border-radius: 18px;
+  background:
+    linear-gradient($surface, $surface) padding-box,
+    linear-gradient(135deg, $yellow, $primary, $pink) border-box;
+  box-shadow: $shadow-panel;
+
+  header {
+    p {
+      margin: 0;
+      color: $primary;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.05em;
+    }
+
+    h4 {
+      margin: 4px 0 8px;
+      font-size: 1.15rem;
+    }
+  }
+}
+
+.summary,
+.narrative {
+  margin: 0;
+  color: $text-secondary;
+  font-size: 13px;
+  line-height: 1.55;
+}
+
+.narrative {
+  padding: 10px 12px;
+  border-radius: 12px;
+  background: $gray-50;
+}
+
+.meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 10px 0 0;
+  padding: 0;
+  list-style: none;
+
+  li {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 4px 8px;
+    border-radius: 999px;
+    background: $yellow-soft;
+    color: $yellow-text;
+    font-size: 11px;
+    font-weight: 750;
+  }
+}
+
+.timeline {
+  position: relative;
+  margin: 16px 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 6px;
+
+  button {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 36px minmax(0, 1fr);
+    gap: 10px;
+    padding: 10px 8px;
+    border: 0;
+    border-radius: 14px;
+    background: transparent;
+    text-align: left;
+    cursor: pointer;
+    color: inherit;
+
+    &:hover {
+      background: $primary-soft;
+    }
+  }
+
+  b {
+    display: grid;
+    place-items: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: $action;
+    color: $text-on-accent;
+    font-size: 13px;
+    box-shadow: 0 0 0 4px $primary-soft;
+  }
+
+  strong,
+  small,
+  em {
+    display: block;
+  }
+
+  strong {
+    font-size: 14px;
+  }
+
+  small {
+    margin-top: 3px;
+    color: $text-muted;
+    font-size: 12px;
+  }
+
+  em {
+    margin-top: 4px;
+    color: $text-secondary;
+    font-size: 12px;
+    font-style: normal;
+    line-height: 1.4;
+  }
+}
+
+.rail {
+  display: block;
+  width: 2px;
+  height: 12px;
+  margin: -2px 0 -2px 17px;
+  background: linear-gradient($primary, $pink);
+}
+
+.nearbyFood {
+  margin: 0 8px 8px 44px;
+  padding: 10px;
+  border: 1px solid $border;
+  border-radius: 12px;
+  background: $gray-50;
+
+  > p {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin: 0 0 8px;
+    color: $primary-strong;
+    font-size: 11px;
+    font-weight: 800;
+  }
+
+  ul {
+    display: grid;
+    gap: 4px;
+    margin: 8px 0 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  li button {
+    width: 100%;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 2px;
+    padding: 8px 10px;
+    border: 1px solid $border;
+    border-radius: 10px;
+    background: $surface;
+    text-align: left;
+    cursor: pointer;
+    color: inherit;
+
+    strong,
+    small {
+      display: block;
+      min-width: 0;
+      margin: 0;
+    }
+
+    strong {
+      font-size: 13px;
+      line-height: 1.35;
+    }
+
+    small {
+      color: $text-muted;
+      font-size: 12px;
+      line-height: 1.45;
+      white-space: normal;
+    }
+
+    &:hover {
+      border-color: $primary;
+      background: $primary-soft;
+    }
+  }
+}
+
+.nearbyFoodCompact {
+  @extend .nearbyFood;
+  margin: 0;
+}
+
+.cuisineChips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+
+  button {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    min-height: 28px;
+    padding: 0 8px;
+    border: 1px solid $border;
+    border-radius: 999px;
+    background: $surface;
+    color: $text-secondary;
+    font-size: 11px;
+    font-weight: 750;
+    cursor: pointer;
+
+    small {
+      color: $text-muted;
+      font-size: 10px;
+    }
+
+    &[aria-selected='true'] {
+      border-color: $action;
+      background: $action;
+      color: $text-on-accent;
+
+      small {
+        color: rgb(255 255 255 / 80%);
+      }
+    }
+  }
+}
+
+.resultActions {
+  display: grid;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.planAction {
+  min-height: 48px;
+  padding: 12px;
+  line-height: 1.4;
+  box-shadow: $shadow-soft;
+
+  svg { flex-shrink: 0; }
+}
+
+.planHint {
+  margin: 0;
+  color: $text-secondary;
+  font-size: 12px;
+  line-height: 1.6;
+  overflow-wrap: anywhere;
+}
+
+@keyframes shimmer {
+  to {
+    background-position: -200% 0;
+  }
+}
+
+@media (max-width: 900px) {
+  .themes {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .row {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .skeleton span {
+    animation: none;
+  }
+}

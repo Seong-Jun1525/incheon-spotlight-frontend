@@ -1,0 +1,42 @@
+// QuickMenuPanel.module.scss — QuickMenuPanel 빠른 메뉴 패널 스타일
+// - root: 글래스 배경의 카드 컨테이너, 600px 이하에서 가로 폭 전체 사용
+// - grid: 바로가기 버튼 2x2 배치
+
+@use '../../styles/variables' as *;
+
+.root {
+  pointer-events: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 14px 16px 16px;
+  min-width: 0;
+  flex: 0 0 min(300px, 100%);
+  max-width: 100%;
+  background: $glass-bg;
+  backdrop-filter: blur(16px);
+  border: 1px solid $glass-border;
+  box-shadow: $shadow-panel;
+  border-radius: 20px;
+}
+
+.heading {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 800;
+  color: $ink;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: 10px;
+  align-items: stretch;
+}
+
+@media (max-width: 600px) {
+  .root {
+    flex: 1 1 100%;
+  }
+}

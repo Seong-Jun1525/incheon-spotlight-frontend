@@ -1,0 +1,78 @@
+// Logo.module.scss — Logo 컴포넌트 스타일
+// - .root/.mark/.texts로 브랜드 마크와 .english/.title/.sub 텍스트를 나란히 배치
+// - phone-layout에서 마크를 축소하고 보조 문구를 숨김
+// - .onDark는 어두운 배경에서 쓰는 글자색 변형
+@use '../../styles/variables' as *;
+
+.root {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+
+.mark {
+  display: block;
+  width: 44px;
+  height: 44px;
+  flex: 0 0 44px;
+  object-fit: contain;
+}
+
+.texts {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  line-height: 1.15;
+}
+
+.title {
+  font-size: 17px;
+  font-weight: 750;
+  letter-spacing: -0.025em;
+  color: $text-primary;
+}
+
+.english {
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 0.11em;
+  color: $primary;
+}
+
+.sub {
+  font-size: 10px;
+  font-weight: 500;
+  color: $text-muted;
+  margin-top: 1px;
+}
+
+@include phone-layout {
+  .mark {
+    width: 36px;
+    height: 36px;
+    flex-basis: 36px;
+  }
+
+  .english,
+  .sub {
+    display: none;
+  }
+
+  .title {
+    font-size: 16px;
+  }
+}
+
+.onDark {
+  .title {
+    color: #ffffff;
+  }
+
+  .english {
+    color: #9ec4ee;
+  }
+
+  .sub {
+    color: #b7c8dc;
+  }
+}

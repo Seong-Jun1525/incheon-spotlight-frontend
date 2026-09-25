@@ -1,0 +1,142 @@
+// RealtimeSearchRanks.module.scss — 실시간 인기 검색어 위젯(RealtimeSearchRanks) 스타일
+// - .root/.rootPills로 list·pills 두 레이아웃 변형을 전환
+// - .list/.item과 .rank1~.rank3으로 순위 목록과 상위 순위 강조 색을 정의
+// - .pills/.pill로 칩 형태의 가로 나열 변형을 구성
+@use '../../styles/variables' as *;
+
+.root {
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px dashed $border;
+}
+
+.head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 8px;
+
+  p {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    margin: 0;
+    color: $text-primary;
+    font-size: 12px;
+    font-weight: 750;
+  }
+
+  span {
+    color: $text-muted;
+    font-size: 10px;
+    font-weight: 600;
+  }
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.item {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 32px;
+  padding: 4px 6px;
+  border: 0;
+  border-radius: 4px;
+  background: transparent;
+  color: $text-primary;
+  text-align: left;
+  cursor: pointer;
+
+  span {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size: 13px;
+    font-weight: 650;
+  }
+
+  &:hover,
+  &:focus-visible {
+    background: $primary-soft;
+  }
+}
+
+.rank,
+.rank1,
+.rank2,
+.rank3 {
+  flex: 0 0 18px;
+  color: $primary;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 800;
+  text-align: center;
+}
+
+.rank1 {
+  color: $accent;
+}
+
+.rank2 {
+  color: $primary-strong;
+}
+
+.rank3 {
+  color: $text-secondary;
+}
+
+.rootPills {
+  margin-top: 10px;
+  padding-top: 10px;
+}
+
+.pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  max-width: 100%;
+  min-height: 30px;
+  padding: 0 10px 0 8px;
+  border: 1px solid $border;
+  border-radius: 999px;
+  background: $surface;
+  color: $text-primary;
+  font: inherit;
+  font-size: 12px;
+  font-weight: 650;
+  cursor: pointer;
+
+  em {
+    color: $primary;
+    font-size: 11px;
+    font-style: normal;
+    font-weight: 800;
+  }
+
+  &:hover,
+  &:focus-visible {
+    border-color: $primary;
+    background: $primary-soft;
+  }
+
+  &:focus-visible {
+    outline: 2px solid $focus;
+    outline-offset: 2px;
+  }
+}

@@ -1,0 +1,212 @@
+// PlaceDetailDrawer.module.scss — PlaceDetailDrawer 명소 상세 시트 스타일
+// - backdrop/sheet: 스크림과 아래에서 올라오는(rise) 바텀시트
+// - cover/pad/section: 대표 이미지, 본문 여백, 섹션 제목·본문 타이포
+// - 900px 이상에서는 우측 하단 도킹 카드(dock)로 전환
+
+@use '../../styles/variables' as *;
+
+.backdrop {
+  position: fixed;
+  inset: 0;
+  border: none;
+  padding: 0;
+  background: rgba(0, 96, 149, 0.12);
+  z-index: 50;
+  pointer-events: auto;
+  cursor: pointer;
+}
+
+.sheet {
+  pointer-events: auto;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  max-height: min(62vh, 560px);
+  z-index: 51;
+  border-radius: 20px 20px 0 0;
+  border: 1px solid $overlay-border;
+  border-bottom: none;
+  background: $overlay-bg-strong;
+  backdrop-filter: blur(18px);
+  box-shadow:
+    0 -8px 42px rgba(15, 23, 42, 0.16),
+    0 0 0 1px rgba(15, 23, 42, 0.04);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  animation: rise 0.28s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.sheetHead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 14px 10px;
+  flex-shrink: 0;
+}
+
+.sheetTitle {
+  margin: 0;
+  font-size: 13px;
+  font-weight: 800;
+  color: $sky-600;
+}
+
+.close {
+  border-radius: 12px !important;
+  background: rgba(241, 245, 249, 0.9) !important;
+}
+
+.body {
+  overflow-y: auto;
+  overflow-x: hidden;
+  overscroll-behavior: contain;
+  flex: 1;
+}
+
+.cover {
+  display: block;
+  width: 100%;
+  height: min(200px, 28vh);
+  object-fit: cover;
+}
+
+.coverPh {
+  width: 100%;
+  height: min(140px, 22vh);
+  background: linear-gradient(120deg, #bae6fd, #fef3c7);
+}
+
+.pad {
+  padding: 14px 16px 18px calc(14px + env(safe-area-inset-left, 0px));
+}
+
+.placeName {
+  margin: 0 0 8px;
+  font-size: 20px;
+  font-weight: 800;
+  color: $ink;
+  letter-spacing: -0.02em;
+}
+
+.summary {
+  margin: 0 0 12px;
+  font-size: 14px;
+  line-height: 1.5;
+  color: $ink-soft;
+}
+
+.row {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  margin-bottom: 14px;
+  font-size: 13px;
+  color: $ink;
+}
+
+.rowIcon {
+  flex-shrink: 0;
+  color: #f59e0b;
+  margin-top: 2px;
+}
+
+.addr {
+  line-height: 1.45;
+}
+
+.section {
+  margin-bottom: 14px;
+}
+
+.secTitle {
+  margin: 0 0 4px;
+  font-size: 12px;
+  font-weight: 800;
+  color: #0369a1;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.secBody {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.5;
+  color: $ink-soft;
+}
+
+.ul {
+  margin: 4px 0 0;
+  padding-left: 18px;
+  font-size: 14px;
+  line-height: 1.55;
+  color: $ink;
+}
+
+.directions {
+  width: 100%;
+  padding: 12px;
+  margin-top: 4px;
+  border-radius: 14px;
+  border: none;
+  font-weight: 800;
+  font-size: 15px;
+  color: #0f172a;
+  cursor: pointer;
+  background: linear-gradient(135deg, #fcd34d, #f59e0b);
+  box-shadow: 0 8px 24px rgba(245, 158, 11, 0.32);
+
+  &:hover {
+    filter: brightness(1.03);
+  }
+}
+
+@media (min-width: 900px) {
+  .sheet {
+    bottom: calc(114px + env(safe-area-inset-bottom, 0px));
+    left: auto;
+    right: 16px;
+    width: min(380px, 34vw);
+    max-height: min(520px, 68vh);
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.45);
+    animation-name: dock;
+  }
+
+  .backdrop {
+    background: transparent;
+    pointer-events: none;
+    z-index: 40;
+  }
+
+  @keyframes dock {
+    from {
+      opacity: 0;
+      transform: translateX(14px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  .sheetHead {
+    border-bottom: 1px solid rgba(15, 23, 42, 0.06);
+  }
+
+  .pad {
+    padding-bottom: calc(18px + env(safe-area-inset-bottom, 0px));
+  }
+}

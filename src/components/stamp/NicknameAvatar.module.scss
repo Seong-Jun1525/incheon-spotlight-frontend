@@ -1,0 +1,36 @@
+// NicknameAvatar.module.scss — 닉네임 이니셜 아바타·스키마 안내 박스
+@use '../../styles/variables' as *;
+
+.root {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  background: $primary-soft;
+  color: $primary-strong;
+  font-weight: 750;
+  letter-spacing: -0.02em;
+  flex-shrink: 0;
+}
+
+.schema {
+  padding: 18px 20px;
+  border: 1px solid $border-strong;
+  border-radius: 8px;
+  background: $surface;
+  color: $text-primary;
+
+  strong {
+    display: block;
+    margin-bottom: 8px;
+  }
+
+  p {
+    margin: 0 0 8px;
+    color: $text-secondary;
+  }
+
+  p:last-child {
+    margin-bottom: 0;
+  }
+}

@@ -1,0 +1,88 @@
+// DistrictMark.module.scss — 구·군 SVG 마크 크기·색상
+@use '../../styles/variables' as *;
+
+.mark {
+  display: inline-grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: 40px;
+  height: 40px;
+  border-radius: 6px;
+  background: $primary-soft;
+  color: $primary;
+  overflow: hidden;
+
+  svg {
+    width: 62%;
+    height: 62%;
+  }
+}
+
+.sm {
+  width: 36px;
+  height: 36px;
+}
+
+.letter {
+  font-size: 0.95rem;
+  font-weight: 750;
+  letter-spacing: -0.04em;
+  line-height: 1;
+}
+
+.jemulpo,
+.bupyeong,
+.michuhol {
+  background: $primary-soft;
+  color: $primary-strong;
+}
+
+.yeonsu,
+.seohae,
+.ongjin {
+  background: #e7f4f2;
+  color: #0f6a63;
+}
+
+.ganghwa,
+.gyeyang {
+  background: #eef3e8;
+  color: #3f5c2a;
+}
+
+.namdong {
+  background: #e8f3ec;
+  color: #1f6b3a;
+}
+
+.geomdan,
+.yeongjong {
+  background: #e7eefc;
+  color: #2a4ea3;
+}
+
+:global([data-theme='dark']) {
+  .yeonsu,
+  .seohae,
+  .ongjin {
+    background: #163a38;
+    color: #86d0c8;
+  }
+
+  .ganghwa,
+  .gyeyang {
+    background: #2c3824;
+    color: #c4d6a6;
+  }
+
+  .namdong {
+    background: #1e3728;
+    color: #9dd4af;
+  }
+
+  .geomdan,
+  .yeongjong {
+    background: #1c2c4d;
+    color: #9bb6ef;
+  }
+}

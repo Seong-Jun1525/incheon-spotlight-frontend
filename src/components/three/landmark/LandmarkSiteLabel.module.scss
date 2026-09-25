@@ -1,0 +1,33 @@
+// LandmarkSiteLabel.module.scss — 랜드마크 명칭 칩 스타일
+// - 반투명 배경의 알약형 칩과 그림자·테두리
+// - 코스 순번(.order)과 명소명(.name)의 글자 크기·굵기를 세로로 정렬
+@use '../../../styles/variables' as *;
+
+.chip {
+  pointer-events: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 3px 8px 4px;
+  border-radius: 999px;
+  background: $overlay-bg-strong;
+  border: 1px solid $border;
+  color: $text-primary;
+  box-shadow: 0 6px 14px rgb(20 28 36 / 18%);
+  text-align: center;
+  line-height: 1.2;
+  white-space: nowrap;
+}
+
+.order {
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0;
+  color: $text-primary;
+}
+
+.name {
+  font-size: 11px;
+  font-weight: 750;
+  letter-spacing: -0.02em;
+}

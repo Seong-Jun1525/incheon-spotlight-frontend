@@ -1,0 +1,1589 @@
+// LeftExplorePanel.module.scss — 좌측 탐색 패널(LeftExplorePanel) 전용 스타일
+// - .panel/.expanded로 기본 패널과 구·군 선택 시 확장 레이아웃을 구분
+// - 검색(.searchSection/.suggestList), 칩(.typeChip/.chip), 축제(.festivalBox), 추천(.spotlight*) 블록을 정의
+// - .placeGrid/.placeCard/.activeLandmark로 장소 목록 카드와 선택 강조를 처리
+@use '../../styles/variables' as *;
+
+.panel {
+  width: 100%;
+  height: 100%;
+  max-height: none;
+  overflow: auto;
+  overscroll-behavior: contain;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 18px;
+  border-radius: 6px;
+  border: 1px solid $border-strong;
+  background: $surface;
+  box-shadow: 0 8px 24px rgb(23 43 77 / 7%);
+  color: $text-primary;
+  animation: panelIn 380ms ease both;
+
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  ul,
+  ol {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  li {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
+  }
+}
+
+.expanded {
+  border-color: $border-strong;
+}
+
+.landmarkBuilder {
+  position: relative;
+  overflow: hidden;
+  flex: 0 0 auto;
+  padding: 18px;
+  border: 1px solid color-mix(in srgb, #{$primary} 34%, #{$border});
+  border-radius: 14px;
+  background: radial-gradient(
+      circle at 94% 2%,
+      color-mix(in srgb, #{$yellow} 46%, transparent) 0,
+      transparent 36%
+    ),
+    linear-gradient(135deg, $primary-soft, $surface 76%);
+  box-shadow: 0 12px 28px rgb(29 86 165 / 10%);
+}
+
+.landmarkBuilderHead {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  p {
+    margin: 0 0 3px;
+    color: $primary;
+    font-size: 10px;
+    font-weight: 850;
+    letter-spacing: 0.08em;
+  }
+
+  h2 {
+    margin: 0;
+    color: $text-primary;
+    font-size: 17px;
+    font-weight: 800;
+    line-height: 1.4;
+    letter-spacing: -0.025em;
+    word-break: keep-all;
+  }
+}
+
+.landmarkBuilderIcon {
+  width: 43px;
+  height: 43px;
+  flex: 0 0 43px;
+  display: grid;
+  place-items: center;
+  border-radius: 12px;
+  background: $action;
+  color: $text-on-accent;
+  box-shadow: 0 8px 18px rgb(29 86 165 / 22%);
+}
+
+.landmarkBuilderCopy {
+  margin: 12px 0;
+  color: $text-secondary;
+  font-size: 12px;
+  line-height: 1.6;
+  word-break: keep-all;
+}
+
+.landmarkBuilderFlow {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin-bottom: 13px;
+  color: $text-muted;
+  font-size: 10px;
+  font-weight: 700;
+  white-space: nowrap;
+
+  svg {
+    flex: 0 0 auto;
+    color: $primary;
+  }
+
+  strong {
+    color: $primary-strong;
+  }
+}
+
+.landmarkBuilderCta {
+  min-height: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  border-radius: 8px;
+  background: $action;
+  color: $text-on-accent;
+  font-size: 12px;
+  font-weight: 750;
+  text-decoration: none;
+
+  &:hover {
+    background: $action-hover;
+  }
+
+  &:focus-visible {
+    outline: 2px solid $focus;
+    outline-offset: 2px;
+  }
+}
+
+.searchSection {
+  padding: 14px 14px 12px;
+  border: 1px solid $border;
+  border-top: 3px solid $primary;
+  background: $surface;
+}
+
+.searchHeading {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 14px;
+
+  span {
+    display: block;
+    margin-bottom: 2px;
+    color: $primary;
+    font-size: 11px;
+    font-weight: 750;
+  }
+
+  h2 {
+    margin: 0;
+    color: $text-primary;
+    font-size: 19px;
+    font-weight: 750;
+    letter-spacing: -0.025em;
+  }
+
+  em {
+    flex-shrink: 0;
+    padding: 4px 8px;
+    border: 1px solid #bfd0e5;
+    border-radius: 999px;
+    background: $surface;
+    color: $primary-strong;
+    font-size: 10px;
+    font-style: normal;
+    font-weight: 700;
+  }
+}
+
+.searchLabel {
+  display: block;
+  margin-bottom: 6px;
+  color: $text-primary;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.visuallyHidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.searchForm {
+  position: relative;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.searchControl {
+  position: relative;
+  display: flex;
+  align-items: center;
+  min-width: 0;
+  min-height: 48px;
+  padding: 4px 4px 4px 0;
+  border: 1px solid $border-strong;
+  border-radius: 8px;
+  background: $bg-secondary;
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+
+  &:focus-within {
+    border-color: $primary;
+    background: $surface;
+    box-shadow: 0 0 0 3px rgb(29 86 165 / 16%);
+  }
+}
+
+.searchIcon {
+  position: absolute;
+  left: 13px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: $primary;
+  pointer-events: none;
+}
+
+.search {
+  flex: 1;
+  min-width: 0;
+  box-sizing: border-box;
+  display: block;
+  border: 0;
+  border-radius: 8px;
+  background: transparent;
+  color: $text-primary;
+  font-size: 14px;
+  padding: 12px 8px 12px 40px;
+  min-height: 40px;
+  outline: none;
+
+  &::placeholder {
+    color: $text-muted;
+  }
+
+  &::-webkit-search-cancel-button {
+    display: none;
+  }
+}
+
+.searchClear {
+  flex-shrink: 0;
+  width: 28px;
+  height: 28px;
+  display: grid;
+  place-items: center;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: $text-muted;
+  cursor: pointer;
+
+  &:hover {
+    background: $surface-muted;
+    color: $text-primary;
+  }
+
+  &:focus-visible {
+    outline: 2px solid $focus;
+    outline-offset: 1px;
+  }
+}
+
+.searchSubmit {
+  flex-shrink: 0;
+  min-width: 58px;
+  min-height: 38px;
+  padding: 0 12px;
+  border: 0;
+  border-radius: 6px;
+  background: $action;
+  color: $text-on-accent;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+
+  &:hover {
+    background: $action-hover;
+  }
+
+  &:focus-visible {
+    outline: 2px solid $focus;
+    outline-offset: 2px;
+  }
+}
+
+.searchHelp {
+  margin: 7px 0 0;
+  color: $text-muted;
+  font-size: 11px;
+  line-height: 1.45;
+}
+
+.filterGroup {
+  display: grid;
+  gap: 8px;
+
+  > strong {
+    color: $text-secondary;
+    font-size: 11px;
+    font-weight: 700;
+  }
+}
+
+.themeGroup {
+  display: grid;
+  gap: 8px;
+
+  > strong {
+    color: $text-secondary;
+    font-size: 11px;
+    font-weight: 700;
+  }
+}
+
+.suggestList {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: calc(100% + 8px);
+  z-index: 30;
+  margin: 0;
+  padding: 6px;
+  list-style: none;
+  max-height: min(280px, 40vh);
+  overflow: auto;
+  border-radius: 8px;
+  border: 1px solid $border;
+  background: $surface;
+  box-shadow: $shadow-floating;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.suggestOption {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 28px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 8px;
+  text-align: left;
+  border: 1px solid transparent;
+  border-radius: 3px;
+  background: transparent;
+  color: $text-primary;
+  padding: 9px 10px;
+  cursor: pointer;
+  transition:
+    background 0.15s ease,
+    border-color 0.15s ease;
+
+  &:hover,
+  &:focus-visible {
+    background: $primary-soft;
+    border-color: rgb(29 86 165 / 35%);
+  }
+
+  &:focus-visible {
+    outline: 2px solid $focus;
+    outline-offset: 1px;
+  }
+}
+
+.suggestActive {
+  background: $primary-soft;
+  border-color: rgb(29 86 165 / 35%);
+}
+
+.suggestIcon {
+  width: 28px;
+  height: 28px;
+  border-radius: 3px;
+  display: grid;
+  place-items: center;
+  background: $surface-muted;
+  color: $primary-strong;
+}
+
+.suggestText {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.suggestLabel {
+  font-size: 13px;
+  font-weight: 700;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.suggestMeta {
+  font-size: 11px;
+  color: $text-muted;
+}
+
+.suggestType {
+  flex-shrink: 0;
+  font-size: 11px;
+  font-weight: 650;
+  color: $primary-strong;
+  background: $primary-soft;
+  border-radius: 999px;
+  padding: 3px 8px;
+}
+
+.suggestEmpty {
+  padding: 12px 10px;
+  font-size: 12px;
+  color: $text-muted;
+  line-height: 1.4;
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.typeChips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.typeChip {
+  border: 1px solid $border;
+  background: $surface;
+  color: $text-secondary;
+  padding: 6px 11px;
+  border-radius: 3px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  min-height: 32px;
+  transition:
+    border-color 0.2s ease,
+    background 0.2s ease,
+    color 0.2s ease;
+
+  &:hover {
+    border-color: $primary;
+    color: $primary-strong;
+    background: $primary-soft;
+  }
+
+  &:focus-visible {
+    outline: 2px solid $focus;
+    outline-offset: 2px;
+  }
+}
+
+.activeTypeChip {
+  border-color: $action;
+  background: $action;
+  color: $text-on-accent;
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  border: 1px solid $border;
+  background: $surface;
+  color: $text-secondary;
+  padding: 6px 11px;
+  border-radius: 3px;
+  font-size: 12px;
+  cursor: pointer;
+  min-height: 32px;
+  transition:
+    border-color 0.2s ease,
+    background 0.2s ease,
+    color 0.2s ease;
+
+  &:hover {
+    background: $primary-soft;
+    border-color: $primary;
+    color: $primary-strong;
+  }
+
+  &:focus-visible {
+    outline: 2px solid $focus;
+    outline-offset: 2px;
+  }
+}
+
+.chipDot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.activeChip {
+  background: $action;
+  border-color: $action;
+  color: $text-on-accent;
+  font-weight: 650;
+}
+
+.hero {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.eyebrow {
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  width: 100%;
+  font-size: 12px;
+  font-weight: 650;
+  letter-spacing: 0.02em;
+  color: $primary-strong;
+  background: $primary-soft;
+  border-radius: 4px;
+  padding: 8px 10px;
+
+  &::before {
+    content: '';
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: $primary;
+  }
+}
+
+.heroTitle {
+  margin: 0;
+  max-width: 100%;
+  font-size: clamp(26px, 2vw, 34px);
+  font-weight: 750;
+  line-height: 1.25;
+  letter-spacing: -0.04em;
+  color: $text-primary;
+  word-break: keep-all;
+  overflow-wrap: normal;
+}
+
+.heroLine {
+  display: block;
+}
+
+.heroSubtitle {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.55;
+  color: $text-secondary;
+}
+
+.mood {
+  margin: 0;
+  font-size: 13px;
+  font-weight: 600;
+  color: $primary-strong;
+}
+
+.ctaRow {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.ctaPrimary,
+.ctaSecondary {
+  flex: 1;
+  min-width: 120px;
+  min-height: 44px;
+  border-radius: 4px;
+  font-size: 13px;
+  font-weight: 650;
+  cursor: pointer;
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease;
+
+  &:focus-visible {
+    outline: 2px solid $focus;
+    outline-offset: 2px;
+  }
+}
+
+.ctaPrimary {
+  border: 1px solid $action;
+  background: $action;
+  color: $text-on-accent;
+
+  &:hover {
+    background: $action-hover;
+    border-color: $action-hover;
+  }
+}
+
+.ctaSecondary {
+  border: 1px solid $border-strong;
+  background: $surface;
+  color: $text-primary;
+
+  &:hover {
+    border-color: $primary;
+    color: $primary-strong;
+    background: $primary-soft;
+  }
+}
+
+.recommendBox {
+  margin-top: 4px;
+  min-width: 0;
+}
+
+.recommendHead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.recommendLabel {
+  margin: 0;
+  font-size: 12px;
+  font-weight: 650;
+  color: $text-muted;
+}
+
+.recommendList {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 10px;
+  overflow: visible;
+}
+
+.recommendBtn {
+  width: 100%;
+  min-height: 96px;
+  text-align: left;
+  border-radius: 4px;
+  border: 1px solid $border;
+  background: $surface;
+  color: $text-primary;
+  padding: 14px 14px 14px 18px;
+  cursor: pointer;
+  display: grid;
+  grid-template-columns: 64px minmax(0, 1fr);
+  gap: 12px;
+  align-items: start;
+  position: relative;
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+
+  &::before {
+    position: absolute;
+    top: 14px;
+    bottom: 14px;
+    left: 0;
+    width: 4px;
+    content: '';
+    background: $primary;
+    border-radius: 0 999px 999px 0;
+  }
+
+  &:hover {
+    border-color: $primary;
+    box-shadow: 0 8px 20px rgb(29 86 165 / 12%);
+  }
+
+  &:focus-visible {
+    outline: 2px solid $focus;
+    outline-offset: 2px;
+  }
+}
+
+.recommendActive {
+  border-color: $accent;
+  background: $accent-soft;
+  box-shadow: 0 10px 28px rgb(229 25 55 / 12%);
+
+  &::before {
+    background: $accent;
+  }
+}
+
+.thumb,
+.thumbFallback {
+  width: 64px;
+  height: 64px;
+  border-radius: 12px;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.thumbFallback {
+  display: grid;
+  place-items: center;
+  background: $yellow-soft;
+  color: $yellow-text;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.recommendBody {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.recommendName {
+  display: block;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.recommendMeta {
+  display: block;
+  font-size: 12px;
+  color: $primary-strong;
+  font-weight: 600;
+}
+
+.recommendDesc {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  font-size: 12px;
+  line-height: 1.45;
+  color: $text-secondary;
+}
+
+.recommendTags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin-top: 2px;
+}
+
+.tag {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 650;
+  border-radius: 999px;
+  padding: 2px 8px;
+}
+
+.recommendAction {
+  display: inline-block;
+  margin-top: 2px;
+  font-size: 12px;
+  font-weight: 650;
+  color: $primary;
+}
+
+.spotlightStatus {
+  margin: 0;
+  padding: 14px 12px;
+  border: 1px dashed $border;
+  border-radius: 4px;
+  color: $text-muted;
+  font-size: 13px;
+}
+
+.spotlight {
+  display: grid;
+  gap: 12px;
+  min-width: 0;
+}
+
+.spotlightWeather {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin: 0;
+  color: $primary-strong;
+  font-size: 13px;
+  font-weight: 650;
+}
+
+.spotlightWeatherIcon {
+  display: inline-flex;
+  color: $primary;
+}
+
+.spotlightHero {
+  display: grid;
+  gap: 8px;
+  min-width: 0;
+  padding: 12px;
+  border: 1px solid $border;
+  border-radius: 4px;
+  background: $bg-secondary;
+}
+
+.spotlightCover,
+.spotlightCover.thumbFallback {
+  width: 100%;
+  height: 148px;
+  border-radius: 4px;
+  object-fit: cover;
+}
+
+.spotlightKicker {
+  margin: 4px 0 0;
+  color: $text-muted;
+  font-size: 12px;
+  font-weight: 650;
+}
+
+.spotlightTitle {
+  margin: 0;
+  color: $text-primary;
+  font-size: 20px;
+  font-weight: 750;
+  letter-spacing: -0.03em;
+}
+
+.spotlightReason {
+  margin: 0;
+  color: $text-secondary;
+  font-size: 13px;
+  line-height: 1.55;
+}
+
+.spotlightCta {
+  width: 100%;
+  min-height: 44px;
+  margin-top: 4px;
+  border: 1px solid $action;
+  border-radius: 4px;
+  background: $action;
+  color: $text-on-accent;
+  font-size: 13px;
+  font-weight: 650;
+  cursor: pointer;
+
+  &:hover {
+    background: $action-hover;
+    border-color: $action-hover;
+  }
+
+  &:focus-visible {
+    outline: 2px solid $focus;
+    outline-offset: 2px;
+  }
+}
+
+.spotlightWhy {
+  margin-top: 4px;
+  padding-top: 10px;
+  border-top: 1px solid $border;
+
+  p {
+    margin: 0 0 8px;
+    color: $text-primary;
+    font-size: 12px;
+    font-weight: 700;
+  }
+
+  ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: grid;
+    gap: 6px;
+  }
+
+  li {
+    display: flex;
+    align-items: flex-start;
+    gap: 6px;
+    color: $text-secondary;
+    font-size: 12px;
+    line-height: 1.45;
+
+    svg {
+      flex-shrink: 0;
+      margin-top: 2px;
+      color: $primary;
+    }
+  }
+}
+
+.spotlightMore {
+  display: grid;
+  gap: 8px;
+  min-width: 0;
+}
+
+@media (max-height: 760px) {
+  .recommendList {
+    max-height: 220px;
+    overflow-y: auto;
+  }
+}
+
+.districtBox {
+  position: relative;
+  background: $surface;
+  border: 1px solid $border;
+  border-radius: 4px;
+  padding: 14px;
+  box-shadow: 0 8px 22px rgb(30 30 30 / 5%);
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 14px;
+    bottom: 14px;
+    left: 0;
+    width: 3px;
+    border-radius: 0 999px 999px 0;
+    background: $primary;
+  }
+}
+
+.backRegions {
+  display: inline-flex;
+  align-items: center;
+  margin: 0 0 8px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: $primary-strong;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+
+  &:hover,
+  &:focus-visible {
+    text-decoration: underline;
+  }
+}
+
+.label {
+  margin: 0;
+  color: $primary-strong;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+}
+
+.districtName {
+  margin: 6px 0 10px;
+  color: $text-primary;
+  font-size: 21px;
+}
+
+.descriptionGroup {
+  padding: 11px 12px;
+  border: 1px solid $border;
+  border-radius: 3px;
+  background: $surface-muted;
+}
+
+.descriptionTitle {
+  display: block;
+  margin-bottom: 5px;
+  color: $text-primary;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.desc {
+  margin: 0;
+  font-size: 13px;
+  color: $text-secondary;
+  line-height: 1.65;
+  word-break: keep-all;
+}
+
+.themeBadges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 10px;
+}
+
+.themeBadge {
+  font-size: 11px;
+  color: $primary-strong;
+  border: 1px solid $primary-soft;
+  background: $primary-soft;
+  border-radius: 999px;
+  padding: 3px 8px;
+}
+
+.notice {
+  margin: 10px 0 0;
+  border-radius: 12px;
+  padding: 9px 10px;
+  color: $accent-hover;
+  background: $accent-soft;
+  font-size: 12px;
+  line-height: 1.45;
+}
+
+.listBox {
+  background: $surface;
+  border-radius: 4px;
+  border: 1px solid $border;
+  padding: 10px;
+}
+
+.listHead {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+
+  strong {
+    font-size: 13px;
+    color: $text-primary;
+  }
+
+  button {
+    border: none;
+    background: transparent;
+    color: $primary;
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: 600;
+    min-height: 32px;
+    white-space: nowrap;
+
+    &:focus-visible {
+      outline: 2px solid $focus;
+      outline-offset: 2px;
+    }
+  }
+}
+
+.status {
+  margin: 0 0 8px;
+  color: $primary;
+  font-size: 12px;
+  line-height: 1.45;
+}
+
+.errorStatus {
+  color: $accent-hover;
+}
+
+.landmarkBtn {
+  width: 100%;
+  text-align: left;
+  border-radius: 3px;
+  border: 1px solid $border;
+  background: $surface-muted;
+  color: $text-primary;
+  padding: 10px 11px;
+  cursor: pointer;
+  transition:
+    border-color 0.2s ease,
+    background 0.2s ease;
+
+  span {
+    display: block;
+    font-size: 13px;
+    font-weight: 700;
+    margin-bottom: 3px;
+  }
+
+  small {
+    color: $text-secondary;
+    font-size: 11px;
+    line-height: 1.4;
+  }
+
+  &:hover {
+    border-color: $border-strong;
+    background: $surface;
+  }
+
+  &:focus-visible {
+    outline: 2px solid $focus;
+    outline-offset: 2px;
+  }
+}
+
+.placeGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 10px;
+  max-height: min(420px, 48vh);
+  overflow: auto;
+}
+
+.placeCard {
+  display: grid;
+  grid-template-columns: 76px minmax(0, 1fr);
+  gap: 10px;
+  width: 100%;
+  min-height: 76px;
+  padding: 0;
+  overflow: hidden;
+  text-align: left;
+  border: 1px solid $border;
+  border-radius: 8px;
+  background: $surface;
+  color: $text-primary;
+  cursor: pointer;
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+
+  &:hover {
+    border-color: $primary;
+    box-shadow: 0 8px 18px rgb(23 43 77 / 8%);
+  }
+
+  &:focus-visible {
+    outline: 2px solid $focus;
+    outline-offset: 2px;
+  }
+}
+
+.placeCover {
+  width: 76px;
+  height: 100%;
+  min-height: 76px;
+  border-radius: 0;
+  object-fit: cover;
+}
+
+.placeBody {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 4px;
+  padding: 10px 12px 10px 0;
+
+  span {
+    font-size: 13px;
+    font-weight: 750;
+    letter-spacing: -0.02em;
+  }
+
+  small {
+    color: $text-secondary;
+    font-size: 12px;
+    line-height: 1.45;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+}
+
+.activeLandmark {
+  border-color: $accent;
+  background: $accent-soft;
+  box-shadow: inset 3px 0 0 $accent;
+}
+
+.empty {
+  color: $text-muted;
+  font-size: 12px;
+  padding: 8px 2px;
+  line-height: 1.45;
+}
+
+.festivalBox {
+  position: relative;
+  flex-shrink: 0;
+  width: 100%;
+  padding: 12px;
+  border: 1px solid $border;
+  border-left: 3px solid #f8981d;
+  border-radius: 4px;
+  background: $surface;
+}
+
+.festivalList {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+  max-height: 168px;
+  overflow: auto;
+
+  li {
+    width: 100%;
+  }
+}
+
+.festivalHead {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+
+  strong {
+    font-size: 13px;
+    color: $text-primary;
+  }
+}
+
+.festivalCount {
+  margin-left: auto;
+  padding: 2px 7px;
+  border-radius: 999px;
+  background: $yellow-soft;
+  color: $yellow-text;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.festivalBtn {
+  width: 100%;
+  text-align: left;
+  border-radius: 3px;
+  border: 1px solid $border;
+  background: $surface-muted;
+  color: $text-primary;
+  padding: 9px 10px;
+  cursor: pointer;
+  transition:
+    border-color 0.2s ease,
+    background 0.2s ease;
+
+  small {
+    display: block;
+    margin-top: 4px;
+    color: $text-secondary;
+    font-size: 11px;
+    line-height: 1.4;
+  }
+
+  &:hover {
+    border-color: $border-strong;
+    background: $surface;
+  }
+
+  &:focus-visible {
+    outline: 2px solid $focus;
+    outline-offset: 2px;
+  }
+}
+
+.festivalTitleRow {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+}
+
+.festivalName {
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1.35;
+  word-break: keep-all;
+}
+
+.festivalBadge {
+  flex-shrink: 0;
+  padding: 1px 7px;
+  border-radius: 999px;
+  font-style: normal;
+  font-size: 10px;
+  font-weight: 700;
+}
+
+/* 지금 가야 하는 것일수록 강한 색을 씁니다. */
+.urgent {
+  background: $accent-soft;
+  color: $accent-hover;
+}
+
+.ongoing {
+  background: $yellow-soft;
+  color: $yellow-text;
+}
+
+.upcoming {
+  background: $primary-soft;
+  color: $primary-strong;
+}
+
+.muted {
+  background: $surface-muted;
+  color: $text-muted;
+}
+
+.districtQuickNav {
+  margin-top: 14px;
+  padding: 12px;
+  border: 1px solid $border;
+  border-radius: 4px;
+  background: $surface-muted;
+
+  h3 {
+    margin: 0;
+    color: $text-primary;
+    font-size: 13px;
+  }
+
+  > p {
+    margin: 3px 0 9px;
+    color: $text-muted;
+    font-size: 11px;
+    line-height: 1.45;
+  }
+
+  ul {
+    display: flex;
+    flex-flow: row wrap;
+    gap: 6px;
+    width: 100%;
+    max-height: none;
+    overflow: visible;
+  }
+
+  li {
+    list-style: none;
+  }
+
+  button {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    min-height: 32px;
+    padding: 5px 9px;
+    border: 1px solid $border;
+    border-radius: 3px;
+    color: $text-secondary;
+    background: $surface;
+    font: inherit;
+    font-size: 11px;
+    font-weight: 650;
+    cursor: pointer;
+
+    &:hover {
+      color: $primary-strong;
+      border-color: $primary;
+    }
+
+    &:focus-visible {
+      outline: 2px solid $focus;
+      outline-offset: 2px;
+    }
+
+    > span {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+  }
+}
+
+.districtFestivalHint {
+  padding: 1px 6px;
+  border-radius: 999px;
+  background: $yellow-soft;
+  color: $yellow-text;
+  font-size: 10px;
+  font-style: normal;
+  font-weight: 700;
+}
+
+.dataSource {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 3px 6px;
+  margin-top: 12px;
+  padding-top: 10px;
+  border-top: 1px solid $border-strong;
+  color: $text-muted;
+  font-size: 10px;
+  line-height: 1.45;
+
+  strong {
+    color: $text-secondary;
+  }
+
+  small {
+    flex-basis: 100%;
+    font-size: inherit;
+  }
+}
+
+@keyframes panelIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 900px) {
+  .panel {
+    width: 100%;
+    max-height: min(42vh, 360px);
+  }
+
+  .heroTitle {
+    font-size: 1.25rem;
+  }
+}
+
+@include phone-layout {
+  .panel {
+    width: 100%;
+    height: auto;
+    max-height: none;
+    overflow: visible;
+    overscroll-behavior: auto;
+    padding: 12px 12px 28px;
+    border: 0;
+    border-radius: 0;
+    box-shadow: none;
+    background: $bg-secondary;
+    animation: none;
+  }
+
+  .searchSection {
+    padding: 12px;
+    background: $surface;
+  }
+
+  .searchHeading {
+    margin-bottom: 10px;
+
+    h2 {
+      font-size: 17px;
+    }
+  }
+
+  .searchHelp {
+    display: none;
+  }
+
+  .search {
+    font-size: 16px;
+  }
+
+  .typeChips,
+  .chips {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    margin: 0 -12px;
+    padding: 0 12px 4px;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+
+  .typeChip,
+  .chip {
+    flex: 0 0 auto;
+    min-height: 44px;
+  }
+
+  .heroTitle,
+  .heroSubtitle,
+  .mood,
+  .ctaRow,
+  .eyebrow {
+    display: none;
+  }
+
+  .filterGroup,
+  .themeGroup,
+  .festivalBox,
+  .recommendBox,
+  .districtBox,
+  .listBox,
+  .districtQuickNav {
+    background: $surface;
+    border-radius: 0;
+  }
+
+  .districtQuickNav {
+    margin-top: 0;
+    padding: 0;
+    border: 1px solid $border;
+    background: $surface;
+
+    h3 {
+      padding: 12px 14px 0;
+      font-size: 15px;
+    }
+
+    > p {
+      padding: 4px 14px 10px;
+      margin: 0;
+    }
+
+    ul {
+      display: flex;
+      flex-direction: column;
+      flex-wrap: nowrap;
+      gap: 0;
+    }
+
+    li + li button {
+      border-top: 0;
+    }
+
+    button {
+      width: 100%;
+      min-height: 52px;
+      justify-content: space-between;
+      padding: 12px 14px;
+      border-radius: 0;
+      border-left: 0;
+      border-right: 0;
+      font-size: 15px;
+      background: $surface;
+    }
+  }
+
+  .placeGrid,
+  .festivalList,
+  .recommendList {
+    max-height: none;
+    overflow: visible;
+  }
+
+  .placeCard {
+    min-height: 88px;
+    border-radius: 0;
+  }
+
+  .placeCover {
+    width: 88px;
+    min-height: 88px;
+  }
+
+  .spotlightHero {
+    padding: 0 0 12px;
+  }
+
+  .spotlightCover {
+    height: 160px;
+  }
+}

@@ -1,0 +1,344 @@
+// MainPage.module.scss — 메인 탐색 화면 레이아웃·비주얼 스타일
+// - 3D 지도, 좌측 탐색 패널, 우측 툴바, 하단 코스 바를 배치하는 전체 화면 그리드 정의
+// - 계절별 배경 글로우와 폰 레이아웃(data-layout='phone')용 리본·코스 영역 포함
+
+@use '../styles/variables' as *;
+
+.page {
+  width: 100%;
+  min-height: 100vh;
+  min-height: 100dvh;
+  background: $bg-primary;
+  color: $text-primary;
+}
+
+.hero {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  height: 100dvh;
+  overflow: hidden;
+  background: $bg-primary;
+  color: $text-primary;
+  display: grid;
+  grid-template-columns: 396px minmax(0, 1fr);
+  grid-template-rows: auto minmax(0, 1fr);
+  gap: 16px 24px;
+  padding: 0 24px 20px;
+  box-sizing: border-box;
+  animation: pageIn 420ms ease both;
+
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
+  }
+}
+
+.bg {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background:
+    radial-gradient(
+      circle at 70% 30%,
+      var(--page-glow-yellow) 0%,
+      transparent 30%
+    ),
+    radial-gradient(
+      circle at 88% 80%,
+      var(--page-glow-pink) 0%,
+      transparent 24%
+    ),
+    $bg-primary;
+
+  &[data-season='winter'] {
+    --page-glow-yellow: rgb(180 210 235 / 12%);
+    --page-glow-pink: rgb(160 190 220 / 6%);
+  }
+
+  &[data-season='spring'] {
+    --page-glow-yellow: rgb(255 236 170 / 12%);
+    --page-glow-pink: rgb(200 230 180 / 7%);
+  }
+
+  &[data-season='summer'] {
+    --page-glow-yellow: rgb(170 220 255 / 10%);
+    --page-glow-pink: rgb(140 200 230 / 7%);
+  }
+
+  &[data-season='autumn'] {
+    --page-glow-yellow: rgb(255 196 110 / 14%);
+    --page-glow-pink: rgb(238 150 110 / 8%);
+  }
+}
+
+.nav {
+  grid-column: 1 / -1;
+  position: relative;
+  z-index: 20;
+  align-self: start;
+}
+
+.left {
+  position: relative;
+  z-index: 18;
+  min-width: 0;
+  min-height: 0;
+  height: 100%;
+  overflow: hidden;
+  overscroll-behavior: contain;
+}
+
+.mapArea {
+  position: relative;
+  z-index: 2;
+  min-width: 0;
+  min-height: 0;
+  overflow: hidden;
+  border: 1px solid $border;
+  border-radius: 6px;
+  background: $surface-muted;
+}
+
+.map {
+  position: absolute;
+  inset: 0;
+}
+
+.revealHint {
+  position: absolute;
+  left: 50%;
+  top: 16px;
+  z-index: 12;
+  transform: translateX(-50%);
+  margin: 0;
+  padding: 8px 14px;
+  border-radius: 6px;
+  background: rgb(23 33 48 / 78%);
+  color: #fff;
+  font-size: 0.875rem;
+  font-weight: 700;
+  pointer-events: none;
+  white-space: nowrap;
+}
+
+.right {
+  position: absolute;
+  right: 36px;
+  top: 160px;
+  z-index: 18;
+}
+
+.rightWithDetail {
+  right: 474px;
+  z-index: 41;
+}
+
+.mapHudLeft {
+  position: absolute;
+  left: 16px;
+  top: 16px;
+  z-index: 11;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: center;
+  gap: 8px;
+  width: max-content;
+  max-width: calc(100% - 32px);
+  pointer-events: none;
+
+  > * {
+    pointer-events: auto;
+    flex: 0 0 auto;
+  }
+
+  > :last-child {
+    flex: 0 1 auto;
+    min-width: 0;
+    max-width: 100%;
+  }
+}
+
+.bottom {
+  position: absolute;
+  left: 50%;
+  bottom: 16px;
+  width: min(680px, calc(100% - 48px));
+  transform: translateX(-50%);
+  z-index: 12;
+  pointer-events: none;
+
+  > * {
+    pointer-events: auto;
+  }
+}
+
+@keyframes pageIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@media (max-width: 1100px) {
+  .hero {
+    grid-template-columns: 356px minmax(0, 1fr);
+    gap: 14px 20px;
+    padding: 0 20px 16px;
+  }
+
+  .right {
+    right: 28px;
+  }
+
+  .rightWithDetail {
+    right: 466px;
+  }
+
+  .mapHudLeft {
+    left: 12px;
+    top: 12px;
+    width: max-content;
+    max-width: calc(100% - 24px);
+  }
+
+  .bottom {
+    width: min(620px, calc(100% - 40px));
+  }
+}
+
+@media (max-width: 900px) {
+  .hero {
+    display: block;
+    padding: 0 10px 10px;
+  }
+
+  .nav {
+    position: relative;
+    margin-bottom: 10px;
+  }
+
+  .left {
+    position: absolute;
+    left: 10px;
+    right: 10px;
+    bottom: 0;
+    top: auto;
+    height: auto;
+    max-height: none;
+    z-index: 22;
+    overflow: visible;
+  }
+
+  .mapArea {
+    position: absolute;
+    inset: calc(var(--site-nav-height, 150px) + 10px) 56px 110px 10px;
+    border-radius: 5px;
+  }
+
+  .right {
+    right: 14px;
+    top: calc(var(--site-nav-height, 150px) + 24px);
+  }
+
+  .rightWithDetail {
+    right: 14px;
+    z-index: 18;
+  }
+
+  .mapHudLeft {
+    left: 10px;
+    top: 10px;
+    width: max-content;
+    max-width: calc(100% - 20px);
+  }
+
+  .bottom {
+    display: none;
+  }
+}
+
+@include phone-layout {
+  .page {
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    min-height: 100dvh;
+    overflow-x: clip;
+    overflow-y: visible;
+    background: $bg-secondary;
+  }
+
+  .hero {
+    display: flex;
+    flex-direction: column;
+    height: auto !important;
+    min-height: 0;
+    max-height: none;
+    overflow: visible;
+    padding: 0;
+    gap: 0;
+    animation: none;
+  }
+
+  .bg {
+    display: none;
+  }
+
+  .nav {
+    position: sticky;
+    top: 0;
+    z-index: 90;
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+    margin: 0;
+    box-sizing: border-box;
+  }
+
+  .phoneRibbon {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+    padding: 10px 12px 0;
+    box-sizing: border-box;
+    overflow-x: clip;
+    background: $bg-secondary;
+
+    > * {
+      width: max-content;
+      min-width: 0;
+      max-width: 100%;
+      box-sizing: border-box;
+    }
+  }
+
+  .phoneCourse {
+    padding: 0 12px 16px;
+    background: $bg-secondary;
+  }
+
+  .left {
+    position: relative;
+    inset: auto;
+    height: auto;
+    max-height: none;
+    overflow: visible;
+    overscroll-behavior: auto;
+    z-index: 2;
+  }
+
+  .mapArea,
+  .right,
+  .rightWithDetail,
+  .bottom,
+  .mapHudLeft {
+    display: none;
+  }
+}

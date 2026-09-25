@@ -1,0 +1,182 @@
+// CourseStopsPanel.module.scss — CourseStopsPanel 코스 상세 패널 스타일
+// - panel: 지도 위 좌측 하단에 떠 있는 카드, 900px 이하·phone-layout에서 폭·위치 조정
+// - meta/routeButton: 테마·장소 수·소요 시간 칩과 경로 보기 버튼
+// - stopBtn/active/order: 정류장 목록 버튼, 선택 강조, 순번 원형 배지
+
+@use '../../styles/variables' as *;
+
+.panel {
+  position: absolute;
+  left: 20px;
+  bottom: 88px;
+  z-index: 20;
+  width: min(320px, calc(100% - 40px));
+  max-height: calc(100% - 168px);
+  overflow: auto;
+  padding: 18px;
+  border-radius: 20px;
+  background: $overlay-bg-strong;
+  box-shadow: $shadow-floating;
+  border: 1px solid $border;
+}
+
+.head {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+
+  h3 {
+    margin: 4px 0 8px;
+    font-size: 1.15rem;
+    color: $text-primary;
+  }
+}
+
+.eyebrow {
+  margin: 0;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: #ea580c;
+  text-transform: uppercase;
+}
+
+.summary {
+  margin: 0;
+  font-size: 0.86rem;
+  line-height: 1.5;
+  color: $text-secondary;
+}
+
+.close {
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+  border: none;
+  border-radius: 999px;
+  background: $surface-muted;
+  color: $text-secondary;
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+
+.meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 14px 0 16px;
+
+  span {
+    padding: 4px 10px;
+    border-radius: 999px;
+    background: #fff7ed;
+    color: #c2410c;
+    font-size: 0.75rem;
+    font-weight: 600;
+  }
+}
+
+.routeButton {
+  width: 100%;
+  min-height: 40px;
+  margin: 0 0 12px;
+  border: 1px solid #ea580c;
+  border-radius: 12px;
+  background: #ea580c;
+  color: #fff;
+  font-weight: 700;
+  cursor: pointer;
+
+  &:hover { background: #c2410c; border-color: #c2410c; }
+  &:focus-visible { outline: 2px solid #fb923c; outline-offset: 2px; }
+}
+
+.stops {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 8px;
+}
+
+.stopBtn {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 12px;
+  border: 1px solid $border;
+  border-radius: 14px;
+  background: $surface;
+  text-align: left;
+  cursor: pointer;
+  transition: border-color 0.15s ease, background 0.15s ease;
+
+  &:hover {
+    border-color: #fdba74;
+    background: #fff7ed;
+  }
+}
+
+.active {
+  border-color: #ea580c;
+  background: #fff7ed;
+}
+
+.order {
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 999px;
+  background: #ea580c;
+  color: #fff;
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+.stopBody {
+  display: grid;
+  gap: 2px;
+
+  strong {
+    color: $text-primary;
+    font-size: 0.92rem;
+  }
+
+  small {
+    color: $text-muted;
+    font-size: 0.75rem;
+  }
+
+  em {
+    display: block;
+    margin-top: 2px;
+    color: $text-secondary;
+    font-size: 0.75rem;
+    font-style: normal;
+    line-height: 1.4;
+  }
+}
+
+@media (max-width: 900px) {
+  .panel {
+    left: 12px;
+    right: 12px;
+    bottom: 76px;
+    width: auto;
+  }
+}
+
+@include phone-layout {
+  .panel {
+    position: relative;
+    left: auto;
+    right: auto;
+    bottom: auto;
+    width: auto;
+    max-height: none;
+    margin: 0 12px 12px;
+    border-radius: 6px;
+  }
+}

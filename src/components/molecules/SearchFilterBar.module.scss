@@ -1,0 +1,101 @@
+// SearchFilterBar.module.scss — 검색·카테고리 필터 바(SearchFilterBar) 스타일
+// - .root/.pill로 기본 툴바 레이아웃과 알약형 컨테이너를 정의
+// - .rootFloating/.pillFloating/.selectFloating은 지도 위 플로팅 변형
+// - .search/.select/.divider로 입력·셀렉트·구분선 영역을 배치
+@use '../../styles/variables' as *;
+
+.root {
+  pointer-events: auto;
+  max-width: min(520px, 100%);
+}
+
+.rootFloating {
+  max-width: min(280px, 88vw);
+  transition: max-width 0.22s ease;
+
+  &:focus-within {
+    max-width: min(420px, 94vw);
+  }
+}
+
+.pill {
+  display: flex;
+  align-items: stretch;
+  background: $glass-bg;
+  backdrop-filter: blur(16px);
+  border: 1px solid $glass-border;
+  box-shadow: $shadow-panel;
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+.pillFloating {
+  background: $overlay-bg;
+  backdrop-filter: blur(16px);
+  border: 1px solid $overlay-border;
+  box-shadow: $shadow-panel;
+  border-radius: 999px;
+}
+
+.search {
+  flex: 1;
+  min-width: 0;
+}
+
+.select {
+  flex: 0 0 auto;
+  background: rgba(224, 242, 254, 0.72);
+  border-left: 1px solid rgba(0, 96, 149, 0.12);
+}
+
+.selectFloating {
+  min-width: 0 !important;
+  max-width: 0;
+  opacity: 0;
+  overflow: hidden;
+  border-left: none;
+  padding: 0;
+  margin: 0;
+  transition:
+    max-width 0.2s ease,
+    opacity 0.15s ease;
+}
+
+.rootFloating:focus-within .selectFloating {
+  max-width: 160px;
+  opacity: 1;
+}
+
+.divider {
+  display: none;
+  width: 1px;
+  background: rgba(0, 96, 149, 0.12);
+}
+
+@media (min-width: 500px) {
+  .divider {
+    display: block;
+  }
+}
+
+@media (max-width: 639px) {
+  .rootFloating {
+    max-width: none;
+
+    &:focus-within {
+      max-width: none;
+    }
+  }
+
+  .pillFloating {
+    border-radius: 16px;
+  }
+
+  .selectFloating {
+    max-width: 140px;
+    opacity: 1;
+    padding: revert;
+    margin: revert;
+    overflow: visible;
+  }
+}

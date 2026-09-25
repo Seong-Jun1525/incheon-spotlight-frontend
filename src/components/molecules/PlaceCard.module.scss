@@ -1,0 +1,75 @@
+// PlaceCard.module.scss — 장소 카드(PlaceCard) 스타일
+// - .root로 카드형 버튼 레이아웃을, .selected로 선택 상태 강조를 정의
+// - .img/.placeholder로 대표 이미지와 실패 시 대체 영역을 처리
+// - .body/.name/.meta로 이름과 배지·평점 줄을 배치
+@use '../../styles/variables' as *;
+
+.root {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  text-align: left;
+  width: 160px;
+  min-width: 160px;
+  border-radius: 16px;
+  border: 1px solid $overlay-border;
+  background: $overlay-bg;
+  backdrop-filter: blur(12px);
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.1);
+  overflow: hidden;
+  cursor: pointer;
+  font: inherit;
+  padding: 0;
+  transition: box-shadow 0.15s ease, transform 0.1s ease, border-color 0.15s ease;
+
+  &:hover {
+    box-shadow: 0 12px 28px rgba(15, 23, 42, 0.16);
+    transform: translateY(-2px);
+  }
+}
+
+.selected {
+  border-color: rgba(14, 165, 233, 0.55);
+  box-shadow: 0 0 0 2px rgba(14, 165, 233, 0.25);
+}
+
+.img {
+  width: 100%;
+  height: 88px;
+  object-fit: cover;
+  display: block;
+  background: #e0f2fe;
+}
+
+.placeholder {
+  width: 100%;
+  height: 88px;
+  background: linear-gradient(135deg, #bae6fd, #e0f2fe 50%, #7dd3fc);
+}
+
+.body {
+  padding: 10px 10px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  flex: 1;
+}
+
+.name {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 700;
+  color: $ink;
+  line-height: 1.2;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.meta {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+}

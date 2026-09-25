@@ -1,0 +1,51 @@
+// ThreeCanvasBackground.module.scss — ThreeCanvasBackground 3D 지도 배경 스타일
+// - wrap/canvas: 부모를 가득 채우는 절대 위치 캔버스 레이어
+// - wheelHint/loadingPill/fallback: 휠 확대 활성화 버튼, 로딩 표시, 렌더 실패 대체 화면
+
+@use '../../styles/variables' as *;
+
+.wrap {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  background: transparent;
+}
+
+.canvas {
+  display: block;
+  width: 100% !important;
+  height: 100% !important;
+}
+
+.wheelHint {
+  position: absolute;
+  z-index: 2;
+  left: 16px;
+  bottom: 16px;
+  border: 1px solid $border;
+  border-radius: 8px;
+  background: $surface;
+  color: $text-secondary;
+  padding: 8px 12px;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.fallback {
+  position: absolute;
+  inset: 0;
+  background: $surface-muted;
+  opacity: 1;
+}
+
+.loadingPill {
+  padding: 8px 14px;
+  border-radius: 999px;
+  background: $glass-bg-strong;
+  color: $text-secondary;
+  font-size: 13px;
+  font-weight: 600;
+  border: 1px solid $border;
+  box-shadow: $shadow-soft;
+}

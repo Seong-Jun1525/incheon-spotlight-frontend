@@ -1,0 +1,61 @@
+// WeatherSummary.module.scss — 날씨 요약 카드(WeatherSummary) 스타일
+// - .root/.title로 카드 컨테이너와 제목을 구성
+// - .content/.icon/.data로 아이콘과 텍스트를 좌우 2단으로 배치
+// - .temp/.sub/.fine으로 온도·하늘상태·미세먼지 텍스트 크기를 구분
+@use '../../styles/variables' as *;
+
+.root {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.title {
+  margin: 0 0 4px;
+  font-size: 14px;
+  font-weight: 800;
+  color: $ink;
+}
+
+.content {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.icon {
+  flex-shrink: 0;
+  color: #f59e0b;
+  filter: drop-shadow(0 2px 4px rgba(245, 158, 11, 0.35));
+}
+
+.data {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  line-height: 1.2;
+}
+
+.temp {
+  font-size: 22px;
+  font-weight: 800;
+  color: $ink;
+}
+
+.sub {
+  font-size: 13px;
+  color: $sky-600;
+  font-weight: 600;
+}
+
+.fine {
+  font-size: 11px;
+  color: #64748b;
+  margin-top: 2px;
+
+  strong {
+    color: $ink;
+    font-weight: 600;
+  }
+}

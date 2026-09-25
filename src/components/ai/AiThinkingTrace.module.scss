@@ -1,0 +1,135 @@
+// AiThinkingTrace.module.scss — AiThinkingTrace·AiThoughtSummary 스타일
+// - .trace/.title 생성 중 안내 박스와 .steps/.done/.current/.queued 단계 목록 표현
+// - .summary는 참고 출처 <details>의 접기 영역과 목록 불릿 스타일
+// - .spin 회전 애니메이션은 prefers-reduced-motion에서 해제
+@use '../../styles/variables' as *;
+
+.trace {
+  display: grid;
+  gap: 8px;
+  padding: 12px;
+  border: 1px solid $border;
+  border-radius: 14px;
+  background: $gray-50;
+}
+
+.title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+  color: $primary-strong;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.steps {
+  display: grid;
+  gap: 6px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.done,
+.current,
+.queued {
+  display: grid;
+  grid-template-columns: 18px minmax(0, 1fr);
+  gap: 8px;
+  align-items: start;
+  font-size: 13px;
+  line-height: 1.45;
+}
+
+.done {
+  color: $text-secondary;
+}
+
+.current {
+  color: $text-primary;
+  font-weight: 700;
+}
+
+.queued {
+  color: $text-muted;
+}
+
+.mark {
+  display: grid;
+  place-items: center;
+  width: 18px;
+  height: 18px;
+  margin-top: 1px;
+  color: $primary;
+
+  i {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: $primary;
+    box-shadow: 0 0 0 4px $primary-soft;
+  }
+}
+
+.hint {
+  margin: 0;
+  color: $text-muted;
+  font-size: 11px;
+  line-height: 1.4;
+}
+
+.summary {
+  padding: 8px 10px;
+  border: 1px solid $border;
+  border-radius: 12px;
+  background: $surface;
+
+  summary {
+    cursor: pointer;
+    color: $text-secondary;
+    font-size: 12px;
+    font-weight: 750;
+  }
+
+  ol {
+    display: grid;
+    gap: 4px;
+    margin: 8px 0 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  li {
+    position: relative;
+    padding-left: 14px;
+    color: $text-secondary;
+    font-size: 12px;
+    line-height: 1.4;
+
+    &::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 7px;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: $primary;
+    }
+  }
+}
+
+.spin {
+  animation: spin 900ms linear infinite;
+
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
+  }
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}

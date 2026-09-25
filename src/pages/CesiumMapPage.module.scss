@@ -1,0 +1,529 @@
+// CesiumMapPage.module.scss — 관광지 상세 + 3D 지도 화면 스타일
+// - 상단 내비, 좌측 상세 패널, 우측 지도 영역으로 나누는 전체 화면 그리드 정의
+// - 기본 정보·길찾기·주변 정보 섹션과 버튼, 빈 상태 문구 스타일 포함
+
+@use '../styles/variables' as *;
+
+.pageShell {
+  width: 100%;
+  min-height: 100vh;
+  min-height: 100dvh;
+  background: $bg-primary;
+  color: $text-primary;
+}
+
+.page {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  height: 100dvh;
+  overflow: hidden;
+  background: $bg-primary;
+  color: $text-primary;
+  display: grid;
+  grid-template-columns: minmax(320px, 410px) minmax(0, 1fr);
+  grid-template-rows: 128px minmax(0, 1fr);
+  gap: 16px 24px;
+  padding: 0 24px 20px;
+  box-sizing: border-box;
+}
+
+.bg {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background:
+    radial-gradient(
+      circle at 70% 30%,
+      var(--page-glow-yellow) 0%,
+      transparent 30%
+    ),
+    radial-gradient(
+      circle at 88% 80%,
+      var(--page-glow-pink) 0%,
+      transparent 24%
+    ),
+    $bg-primary;
+}
+
+.nav {
+  grid-column: 1 / -1;
+  position: relative;
+  z-index: 20;
+  align-self: start;
+}
+
+.side {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  overflow: hidden;
+  border-radius: 6px;
+  border: 1px solid $border-strong;
+  background: $surface;
+  box-shadow: $shadow-panel;
+}
+
+.breadcrumb {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin: 0;
+  padding: 12px 14px;
+  border-bottom: 1px solid $border;
+  color: $text-muted;
+  font-size: 11px;
+  line-height: 1.35;
+
+  a {
+    color: $text-secondary;
+    text-decoration: none;
+  }
+
+  a:hover {
+    color: $primary-hover;
+    text-decoration: underline;
+  }
+
+  span {
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+}
+
+.hero,
+.heroPlaceholder,
+.heroGallery {
+  width: 100%;
+  height: 160px;
+  margin: 0 0 16px;
+  border-radius: 4px;
+  object-fit: cover;
+  background: $surface-muted;
+}
+
+.heroGallery {
+  height: auto;
+  overflow: hidden;
+}
+
+.heroPlaceholder {
+  display: grid;
+  place-items: center;
+  color: $text-muted;
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+.sideBody {
+  flex: 1;
+  min-height: 0;
+  overflow: auto;
+  padding: 16px 18px 20px;
+}
+
+.titleMeta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 9px;
+
+  span {
+    padding: 4px 8px;
+    border-radius: 3px;
+    background: $primary-soft;
+    color: $primary-strong;
+    font-size: 10px;
+    font-weight: 700;
+  }
+
+  span + span {
+    background: $surface-muted;
+    color: $text-secondary;
+  }
+}
+
+.sideBody h1 {
+  margin: 0 0 10px;
+  font-size: clamp(1.45rem, 2vw, 1.85rem);
+  font-weight: 750;
+  line-height: 1.25;
+  color: $text-primary;
+}
+
+.overview {
+  margin: 0 0 18px;
+  padding: 13px 14px;
+  border-left: 4px solid $primary;
+  background: $surface-muted;
+  color: $text-secondary;
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.sectionNav {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 6px;
+  margin-bottom: 18px;
+  padding: 12px;
+  border: 1px solid $border;
+  background: $surface-muted;
+
+  strong {
+    grid-column: 1 / -1;
+    color: $text-primary;
+    font-size: 11px;
+  }
+
+  a {
+    min-height: 32px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid $border;
+    border-radius: 3px;
+    background: $surface;
+    color: $text-secondary;
+    font-size: 11px;
+    font-weight: 650;
+    text-decoration: none;
+
+    &:hover {
+      border-color: $primary;
+      color: $primary-strong;
+    }
+  }
+}
+
+.detailSection {
+  scroll-margin-top: 12px;
+  margin-top: 18px;
+  padding-top: 17px;
+  border-top: 1px solid $border;
+}
+
+.sectionTitle {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  margin-bottom: 12px;
+  color: $primary;
+
+  h2 {
+    margin: 0;
+    color: $text-primary;
+    font-size: 16px;
+    font-weight: 750;
+  }
+}
+
+.meta {
+  margin: 0;
+  display: grid;
+  gap: 10px;
+
+  div {
+    display: grid;
+    grid-template-columns: 84px 1fr;
+    gap: 8px;
+    padding: 9px 0;
+    border-bottom: 1px solid $border;
+  }
+
+  dt,
+  dd {
+    margin: 0;
+    font-size: 13px;
+    line-height: 1.5;
+  }
+
+  dt {
+    color: $text-muted;
+    font-weight: 700;
+  }
+
+  dd {
+    color: $text-primary;
+    word-break: break-word;
+  }
+}
+
+.actions {
+  display: grid;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.nearbySection {
+  display: grid;
+  gap: 10px;
+  scroll-margin-top: 12px;
+  margin-top: 20px;
+  padding-top: 18px;
+  border-top: 1px solid $border;
+}
+
+.sectionHead {
+  display: grid;
+  gap: 9px;
+
+  span {
+    color: $text-muted;
+    font-size: 10px;
+    font-weight: 700;
+  }
+
+  h2 {
+    margin: 2px 0 0;
+    color: $text-primary;
+    font-size: 15px;
+  }
+}
+
+.poiFilters {
+  display: flex;
+  gap: 6px;
+
+  button {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    min-height: 32px;
+    padding: 6px 10px;
+    border: 1px solid $border;
+    border-radius: 999px;
+    background: $surface;
+    color: $text-secondary;
+    font-size: 11px;
+    cursor: pointer;
+
+    &[aria-pressed='true'] {
+      border-color: $primary;
+      background: $primary-soft;
+      color: $primary-strong;
+      font-weight: 700;
+    }
+  }
+}
+
+.nearbyList {
+  display: grid;
+  gap: 8px;
+
+  :global(article) {
+    grid-template-columns: 62px 1fr;
+  }
+
+  :global(article img) {
+    width: 62px;
+    height: 62px;
+  }
+}
+
+.sectionMessage,
+.sectionError {
+  margin: 0;
+  font-size: 11px;
+  line-height: 1.5;
+}
+
+.sectionMessage { color: $text-muted; }
+.sectionError { color: $danger; }
+
+.sourceNote {
+  margin: 18px 0 0;
+  padding: 12px;
+  border: 1px solid $border;
+  background: $bg-secondary;
+
+  div {
+    display: grid;
+    grid-template-columns: 70px 1fr;
+    gap: 8px;
+  }
+
+  div + div {
+    margin-top: 5px;
+  }
+
+  dt,
+  dd {
+    margin: 0;
+    font-size: 10px;
+    line-height: 1.45;
+  }
+
+  dt {
+    color: $text-muted;
+    font-weight: 700;
+  }
+
+  dd {
+    color: $text-secondary;
+  }
+}
+
+.primaryBtn,
+.secondaryBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 44px;
+  padding: 10px 14px;
+  border-radius: 4px;
+  border: 1px solid transparent;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.primaryBtn {
+  background: $action;
+  color: $text-on-accent;
+  border-color: $action;
+
+  &:hover:not(:disabled) {
+    background: $action-hover;
+  }
+}
+
+.secondaryBtn {
+  background: $surface;
+  color: $text-primary;
+  border-color: $border;
+
+  &:hover:not(:disabled) {
+    border-color: $primary;
+    background: $primary-soft;
+  }
+}
+
+.primaryBtn:disabled,
+.secondaryBtn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.empty {
+  display: grid;
+  place-content: center;
+  gap: 10px;
+  flex: 1;
+  padding: 24px;
+  text-align: center;
+
+  h2 {
+    margin: 0;
+    font-size: 1.1rem;
+    color: $text-primary;
+  }
+
+  p {
+    margin: 0;
+    color: $text-secondary;
+    font-size: 13px;
+  }
+}
+
+.mapArea {
+  position: relative;
+  z-index: 2;
+  min-width: 0;
+  min-height: 0;
+}
+
+.mapLoading {
+  width: 100%;
+  height: 100%;
+  min-height: 360px;
+  display: grid;
+  place-items: center;
+  border-radius: 6px;
+  border: 1px solid $border;
+  background: $gray-100;
+  color: $text-secondary;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+@media (max-width: 900px) {
+  .page {
+    grid-template-columns: 1fr;
+    grid-template-rows: 92px auto minmax(280px, 1fr);
+    gap: 12px;
+    padding: 0 12px 14px;
+    height: auto;
+    min-height: 100vh;
+    min-height: 100dvh;
+    overflow: auto;
+  }
+
+  .side {
+    max-height: none;
+  }
+
+  .mapArea {
+    min-height: 360px;
+    height: 48vh;
+  }
+}
+
+@include phone-layout {
+  .page {
+    display: flex;
+    flex-direction: column;
+    height: auto;
+    min-height: 100dvh;
+    overflow: visible;
+    gap: 0;
+    padding: 0 0 16px;
+  }
+
+  .nav {
+    position: sticky;
+    top: 0;
+    z-index: 20;
+  }
+
+  .side {
+    order: 2;
+    max-height: none;
+    overflow: visible;
+    border-radius: 0;
+    border-left: 0;
+    border-right: 0;
+    box-shadow: none;
+  }
+
+  .sideBody {
+    overflow: visible;
+    padding: 14px 14px 24px;
+  }
+
+  .mapArea {
+    // Keep the map above asynchronous detail content so its growth cannot move it.
+    order: 1;
+    height: 38vh;
+    min-height: 220px;
+    max-height: 320px;
+    margin: 0 12px;
+    border-radius: 6px;
+    overflow: hidden;
+  }
+
+  .hero,
+  .heroPlaceholder,
+  .heroGallery {
+    height: auto;
+    border-radius: 0;
+  }
+}

@@ -1,0 +1,405 @@
+// TopNavigation.module.scss — TopNavigation 상단 헤더 스타일
+// - noticeBar/brandingRow/menuRow: 공지 바, 로고·유틸 버튼 행, 내비게이션 행의 3단 구성
+// - utilityBtn/fav/favCount: 검색·AI·즐겨찾기 버튼과 카운트 배지
+// - favMobile/loginMobile/menuToggle/menuLayer: 모바일 전용 아이콘 버튼과 메뉴 드로어 오버레이
+
+@use '../../styles/variables' as *;
+
+.root {
+  pointer-events: auto;
+  display: flex;
+  flex-direction: column;
+  min-height: 128px;
+  width: 100%;
+  min-width: 0;
+  max-width: 100%;
+  margin: 0;
+  box-sizing: border-box;
+  background: $surface;
+  border-bottom: 1px solid $border-strong;
+  box-shadow: 0 4px 18px rgb(23 43 77 / 6%);
+}
+
+.noticeBar {
+  min-height: 36px;
+  padding: 0 18px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  box-sizing: border-box;
+  color: $text-secondary;
+  background: $bg-secondary;
+  border-bottom: 1px solid $border;
+  font-size: 11px;
+
+  p {
+    margin: 0;
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    font-weight: 650;
+  }
+
+  svg {
+    color: $primary;
+  }
+}
+
+.noticeSource {
+  color: $text-muted;
+}
+
+.preferences {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  gap: 6px 10px;
+  padding: 3px 0;
+  flex-shrink: 0;
+}
+
+.brandingRow {
+  min-height: 58px;
+  padding: 6px 18px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  box-sizing: border-box;
+}
+
+.left {
+  display: flex;
+  align-items: center;
+  min-width: 0;
+}
+
+.logoBtn {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  color: inherit;
+
+  &:focus-visible {
+    outline: 2px solid $focus;
+    outline-offset: 2px;
+  }
+}
+
+.nav {
+  min-width: 0;
+  justify-content: flex-start;
+}
+
+.right {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 4px;
+}
+
+.menuRow {
+  min-height: 42px;
+  padding: 0 18px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  border-top: 1px solid $border;
+}
+
+.menuMeta {
+  flex-shrink: 0;
+  padding-left: 16px;
+  border-left: 1px solid $border;
+  color: $text-muted;
+  font-size: 11px;
+  font-weight: 650;
+}
+
+.utilityBtn,
+.loginBtn,
+.fav {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  min-height: 38px;
+  padding: 7px 10px;
+  color: $text-secondary;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 650;
+
+  &:hover {
+    color: $primary-strong;
+    background: $primary-soft;
+  }
+}
+
+.utilityActive {
+  color: $primary-strong;
+  background: $primary-soft;
+}
+
+.favIcon {
+  flex-shrink: 0;
+}
+
+.favCount {
+  min-width: 18px;
+  height: 18px;
+  padding: 0 5px;
+  border-radius: 999px;
+  background: $accent;
+  color: $text-on-accent;
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 18px;
+  text-align: center;
+}
+
+.favMobile,
+.loginMobile {
+  display: none;
+  color: $text-secondary;
+
+  &:hover {
+    color: $primary;
+  }
+}
+
+.menuToggle,
+.menuLayer {
+  display: none;
+}
+
+@media (max-width: 600px) {
+  .root {
+    min-height: 92px;
+  }
+
+  .noticeBar {
+    min-height: 26px;
+    padding: 0 12px;
+
+    > p span {
+      display: none;
+    }
+  }
+
+  .noticeSource,
+  .menuMeta {
+    display: none;
+  }
+
+  .menuRow {
+    display: flex;
+    padding: 5px 8px;
+    min-height: 44px;
+  }
+
+  .brandingRow {
+    min-height: 66px;
+    padding: 8px 12px;
+  }
+
+  .utilityBtn span,
+  .fav,
+  .loginBtn {
+    display: none;
+  }
+
+  .utilityBtn {
+    width: 40px;
+    justify-content: center;
+    padding: 6px;
+  }
+
+  .favMobile,
+  .loginMobile {
+    display: inline-flex;
+  }
+}
+
+@include phone-layout {
+  .root {
+    min-height: 0;
+    padding-top: env(safe-area-inset-top, 0px);
+    position: relative;
+    z-index: 90;
+  }
+
+  .noticeBar {
+    display: none;
+  }
+
+  .brandingRow {
+    min-height: 52px;
+    padding: 6px 12px;
+    gap: 8px;
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+
+  .menuRow {
+    min-height: 44px;
+    padding: 0 4px;
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+    box-sizing: border-box;
+    overflow: hidden;
+  }
+
+  .menuMeta {
+    display: none;
+  }
+
+  .utilityBtn span,
+  .fav,
+  .loginBtn,
+  .favMobile,
+  .loginMobile {
+    display: none;
+  }
+
+  .utilityBtn {
+    display: none;
+  }
+
+  .searchBtn {
+    display: inline-flex;
+    width: 44px;
+    height: 44px;
+    justify-content: center;
+    padding: 0;
+  }
+
+  .menuToggle {
+    display: inline-flex;
+    color: $text-primary;
+    width: 44px;
+    height: 44px;
+  }
+
+  .menuLayer {
+    display: block;
+    position: fixed;
+    inset: 0;
+    z-index: 80;
+  }
+
+  .menuBackdrop {
+    position: absolute;
+    inset: 0;
+    border: 0;
+    background: rgb(15 23 36 / 42%);
+    cursor: pointer;
+  }
+
+  .menuDrawer {
+    position: absolute;
+    top: 0;
+    right: 0;
+    display: flex;
+    flex-direction: column;
+    width: min(86vw, 360px);
+    height: 100%;
+    padding: calc(12px + env(safe-area-inset-top, 0px)) 0 env(safe-area-inset-bottom, 0px);
+    background: $surface;
+    box-shadow: $shadow-panel;
+    overflow: auto;
+  }
+
+  .menuDrawerHead {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    min-height: 48px;
+    padding: 4px 12px 8px 18px;
+    border-bottom: 1px solid $border;
+
+    strong {
+      font-size: 15px;
+      font-weight: 750;
+    }
+  }
+
+  .menuDrawerList {
+    margin: 0;
+    padding: 8px 0;
+    list-style: none;
+    border-bottom: 1px solid $border;
+
+    button {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      min-height: 48px;
+      padding: 0 18px;
+      border: 0;
+      background: transparent;
+      color: $text-primary;
+      font: inherit;
+      font-size: 16px;
+      font-weight: 650;
+      text-align: left;
+      cursor: pointer;
+
+      &::after {
+        content: '';
+        width: 7px;
+        height: 7px;
+        border-right: 2px solid $border-strong;
+        border-top: 2px solid $border-strong;
+        transform: rotate(45deg);
+      }
+    }
+  }
+
+  .menuDrawerActive {
+    color: $primary-strong;
+    background: $primary-soft;
+    font-weight: 750;
+  }
+
+  .menuDrawerActions {
+    display: flex;
+    flex-direction: column;
+    padding: 8px 0;
+    border-bottom: 1px solid $border;
+
+    button {
+      width: 100%;
+      min-height: 46px;
+      padding: 0 18px;
+      border: 0;
+      background: transparent;
+      color: $text-secondary;
+      font: inherit;
+      font-size: 15px;
+      font-weight: 650;
+      text-align: left;
+      cursor: pointer;
+    }
+  }
+
+  .menuDrawerPrefs {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px;
+    padding: 16px 18px;
+  }
+}

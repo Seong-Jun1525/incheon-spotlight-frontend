@@ -1,0 +1,102 @@
+// NavMenu.module.scss — 가로 내비게이션 메뉴(NavMenu) 스타일
+// - .root/.list/.item으로 메뉴 항목을 가로로 나열
+// - .btn은 메뉴 버튼 기본 스타일, .active는 현재 메뉴 강조 변형
+@use '../../styles/variables' as *;
+
+.root {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex: 1;
+  min-width: 0;
+}
+
+.list {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 2px 4px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.btn {
+  position: relative;
+  font: inherit;
+  font-size: 14px;
+  font-weight: 650;
+  color: $text-secondary;
+  background: transparent;
+  border: none;
+  border-radius: 3px;
+  padding: 8px 14px;
+  cursor: pointer;
+  white-space: nowrap;
+  min-height: 41px;
+  margin: 0 2px;
+  transition: color 0.15s ease, background 0.15s ease;
+
+  &:hover {
+    color: $primary;
+    background: $primary-soft;
+  }
+
+  &.active {
+    color: $primary;
+    font-weight: 700;
+
+    &::after {
+      content: '';
+      position: absolute;
+      left: 12px;
+      right: 12px;
+      bottom: 0;
+      height: 3px;
+      background: $primary;
+    }
+  }
+
+  &:focus-visible {
+    outline: 2px solid $focus;
+    outline-offset: 2px;
+  }
+}
+
+@media (max-width: 900px) {
+  .btn {
+    font-size: 12px;
+    padding: 6px 8px;
+  }
+}
+
+@include phone-layout {
+  .root {
+    width: 100%;
+  }
+
+  .list {
+    flex-wrap: nowrap;
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    gap: 0;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+
+  .btn {
+    min-height: 44px;
+    margin-inline: 0;
+    padding: 8px clamp(6px, 2vw, 14px);
+    font-size: 14px;
+    font-weight: 700;
+  }
+}

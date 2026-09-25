@@ -1,0 +1,175 @@
+// LanguageSelect.module.scss — 언어 선택 트리거·포털 메뉴 스타일
+@use '../../styles/variables' as *;
+
+.root {
+  display: inline-flex;
+  flex-shrink: 0;
+  vertical-align: middle;
+}
+
+.trigger {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 36px;
+  padding: 0 12px;
+  border: 1px solid $border;
+  border-radius: 999px;
+  background: $surface;
+  color: $text-secondary;
+  box-shadow: 0 1px 3px rgb(23 43 77 / 6%);
+  font: inherit;
+  font-size: 12px;
+  font-weight: 650;
+  line-height: 1.4;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: border-color 150ms ease, background 150ms ease, color 150ms ease;
+
+  &:hover,
+  &[aria-expanded='true'] {
+    border-color: $primary;
+    background: $primary-soft;
+    color: $primary-strong;
+  }
+
+  &:focus-visible {
+    outline: 2px solid $focus;
+    outline-offset: 3px;
+  }
+}
+
+.current {
+  min-width: 48px;
+  text-align: center;
+}
+
+.chevron {
+  opacity: 0.65;
+  transition: transform 150ms ease;
+
+  [aria-expanded='true'] & {
+    transform: rotate(180deg);
+  }
+}
+
+.menu {
+  position: fixed;
+  z-index: 1200;
+  width: 228px;
+  max-width: calc(100vw - 24px);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  box-sizing: border-box;
+  padding: 6px;
+  border: 1px solid $border;
+  border-radius: 16px;
+  background: $surface;
+  color: $text-primary;
+  box-shadow: $shadow-floating;
+  font-family: var(--sans);
+  text-align: left;
+  animation: appear 120ms ease-out;
+}
+
+.heading {
+  padding: 8px 10px 10px;
+  margin-bottom: 4px;
+  border-bottom: 1px solid $border;
+  color: $text-muted;
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 1.5;
+}
+
+.option {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  width: 100%;
+  min-height: 46px;
+  padding: 7px 10px;
+  border: 0;
+  border-radius: 10px;
+  background: transparent;
+  color: $text-secondary;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1.5;
+  text-align: left;
+  cursor: pointer;
+  transition: background 120ms ease, color 120ms ease;
+
+  & + & {
+    margin-top: 2px;
+  }
+
+  &:hover {
+    background: $surface-muted;
+    color: $text-primary;
+  }
+
+  &[aria-checked='true'] {
+    background: $primary-soft;
+    color: $primary-strong;
+    font-weight: 700;
+
+    .code {
+      background: $surface;
+      color: $primary;
+    }
+  }
+
+  &:focus-visible {
+    outline: 2px solid $focus;
+    outline-offset: -2px;
+  }
+
+  svg {
+    flex-shrink: 0;
+  }
+}
+
+.code {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 32px;
+  height: 28px;
+  border-radius: 7px;
+  background: $surface-muted;
+  color: $text-muted;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+
+.label {
+  flex: 1;
+}
+
+@keyframes appear {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@media (pointer: coarse) {
+  .trigger {
+    min-height: 44px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .trigger,
+  .chevron,
+  .option {
+    transition: none;
+  }
+
+  .menu {
+    animation: none;
+  }
+}

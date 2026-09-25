@@ -1,0 +1,161 @@
+// MainPageTemplate.module.scss — 초기 메인 템플릿 전체 화면 그리드
+@use '../../styles/variables' as *;
+
+:root {
+  --nav-h: 64px;
+  --nav-pad-x: 12px;
+}
+
+.root {
+  --mini-rec-band: clamp(92px, 11vh, 120px);
+  --bottom-strip: 42px;
+
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  min-height: 100vh;
+  min-height: 100dvh;
+  overflow: hidden;
+  box-sizing: border-box;
+  background:
+    radial-gradient(circle at 50% 35%, #1bb7e8 0%, #0891c7 38%, #086b9b 100%);
+}
+
+.bgWash {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 70% 10%, rgba(255, 255, 255, 0.12), transparent 36%),
+    radial-gradient(circle at 20% 80%, rgba(15, 23, 42, 0.18), transparent 45%);
+}
+
+.mapStage {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: calc(var(--nav-pad-x) + var(--nav-h) + var(--nav-pad-x));
+  bottom: calc(
+    var(--mini-rec-band) + var(--bottom-strip) + env(safe-area-inset-bottom, 0px) + 6px
+  );
+  z-index: 1;
+  box-sizing: border-box;
+  min-height: min(70vh, calc(100dvh - 180px));
+
+  &::after {
+    content: '';
+    position: absolute;
+    inset: auto 12px 12px auto;
+    width: 120px;
+    height: min(280px, 45%);
+    pointer-events: none;
+    background: radial-gradient(
+      farthest-side at center,
+      transparent 62%,
+      rgba(255, 255, 255, 0.04) 100%
+    );
+  }
+}
+
+.navBar {
+  pointer-events: auto;
+  position: absolute;
+  top: var(--nav-pad-x);
+  left: var(--nav-pad-x);
+  right: var(--nav-pad-x);
+  z-index: 20;
+}
+
+.floatCluster {
+  position: absolute;
+  top: calc(var(--nav-h) + var(--nav-pad-x) * 2);
+  left: var(--nav-pad-x);
+  right: calc(var(--nav-pad-x) + 56px);
+  z-index: 22;
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  pointer-events: none;
+}
+
+.floatSearch {
+  pointer-events: auto;
+}
+
+.floatControls {
+  pointer-events: auto;
+}
+
+.floatQuickWrap {
+  position: absolute;
+  right: clamp(10px, 2vw, 18px);
+  bottom: calc(
+    var(--mini-rec-band) + var(--bottom-strip) + env(safe-area-inset-bottom, 0px) + 16px
+  );
+  z-index: 24;
+  pointer-events: none;
+
+  /* 빠른 메뉴 */
+  display: flex;
+  flex-direction: column;
+}
+
+.floatQuickWrap > * {
+  pointer-events: auto;
+}
+
+.bottomArea {
+  position: absolute;
+  left: clamp(12px, 3vw, 24px);
+  right: clamp(12px, 3vw, 24px);
+  bottom: env(safe-area-inset-bottom, 0px);
+  z-index: 25;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 10px;
+  pointer-events: none;
+}
+
+.bottomArea > * {
+  pointer-events: auto;
+}
+
+@media (max-width: 639px) {
+  .floatCluster {
+    flex-direction: column;
+    align-items: stretch;
+    right: var(--nav-pad-x);
+
+    &:focus-within {
+      z-index: 28;
+    }
+  }
+
+  .floatSearch {
+    width: 100%;
+  }
+
+  .floatControls {
+    align-self: flex-end;
+  }
+
+  /* 모바일 dock: 빠른 메뉴 (아이콘 한 줄), 추천 미니바 위쪽 */
+  .floatQuickWrap {
+    bottom: calc(
+      var(--mini-rec-band) + var(--bottom-strip) + env(safe-area-inset-bottom, 0px) + 112px
+    );
+    right: auto;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(255, 255, 255, 0.45);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.38);
+    border-radius: 999px;
+    padding: 2px;
+  }
+}
+

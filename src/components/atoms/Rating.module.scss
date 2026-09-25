@@ -1,0 +1,19 @@
+// Rating.module.scss — Rating 컴포넌트 스타일
+// - .root 별과 점수를 인라인으로 붙여 배치
+// - .star 별 아이콘 색상(앰버)과 크기 지정
+@use '../../styles/variables' as *;
+
+.root {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  font-size: 12px;
+  color: $ink;
+  font-weight: 600;
+}
+
+.star {
+  color: #f59e0b;
+  font-size: 13px;
+  line-height: 1;
+}

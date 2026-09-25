@@ -1,0 +1,70 @@
+// RecommendedPlacePanel.module.scss — RecommendedPlacePanel 추천 명소 섹션 스타일
+// - root/header: 글래스 카드 컨테이너와 제목·더보기 버튼 행
+// - scroll: 명소 카드 가로 스크롤 영역과 커스텀 스크롤바
+
+@use '../../styles/variables' as *;
+
+.root {
+  pointer-events: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 14px 16px 16px;
+  min-width: 0;
+  flex: 1 1 55%;
+  max-width: 100%;
+  background: $glass-bg;
+  backdrop-filter: blur(16px);
+  border: 1px solid $glass-border;
+  box-shadow: $shadow-panel;
+  border-radius: 20px;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.heading {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 800;
+  color: $ink;
+}
+
+.more {
+  font: inherit;
+  font-size: 12px;
+  font-weight: 600;
+  color: $sky-600;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px 0;
+  white-space: nowrap;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.scroll {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  overflow-x: auto;
+  padding-bottom: 4px;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+
+  &::-webkit-scrollbar {
+    height: 6px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: rgba(0, 96, 149, 0.22);
+    border-radius: 6px;
+  }
+}

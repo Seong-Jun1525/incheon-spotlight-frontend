@@ -1,0 +1,27 @@
+// FloatingMapControls.module.scss — 지도 플로팅 컨트롤(FloatingMapControls) 스타일
+// - .root로 지도 오버레이 안에서의 정렬과 포인터 이벤트 허용을 지정
+// - .stack은 버튼을 세로로 쌓는 글래스 패널, .btn은 개별 아이콘 버튼 크기
+@use '../../styles/variables' as *;
+
+.root {
+  pointer-events: auto;
+  align-self: center;
+}
+
+.stack {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 8px;
+  background: $glass-bg;
+  backdrop-filter: blur(16px);
+  border: 1px solid $glass-border;
+  box-shadow: $shadow-panel;
+  border-radius: 20px;
+}
+
+.btn {
+  width: 44px;
+  height: 44px;
+  border-radius: 14px;
+}

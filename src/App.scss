@@ -1,0 +1,70 @@
+// App.scss — App.jsx가 직접 렌더링하는 공통 요소의 스타일
+// - 본문 바로가기 링크(.skip-link) 등 접근성 요소 스타일
+// - 라우트 로딩·404 화면(.route-state)과 로딩 스피너 스타일
+
+@use './styles/variables' as *;
+
+.skip-link {
+  position: fixed;
+  top: 8px;
+  left: 8px;
+  z-index: 10000;
+  padding: 10px 14px;
+  border-radius: 8px;
+  color: $text-on-accent;
+  background: $action;
+  font-weight: 700;
+  text-decoration: none;
+  transform: translateY(-160%);
+
+  &:focus {
+    transform: translateY(0);
+  }
+}
+
+.route-state {
+  min-height: 100dvh;
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 10px;
+  padding: 24px;
+  box-sizing: border-box;
+  text-align: center;
+
+  strong {
+    color: $text-primary;
+    font-size: 1.25rem;
+  }
+
+  a {
+    margin-top: 6px;
+    padding: 10px 16px;
+    border-radius: 4px;
+    color: $text-on-accent;
+    background: $action;
+    font-weight: 700;
+    text-decoration: none;
+  }
+}
+
+.route-state__spinner {
+  width: 30px;
+  height: 30px;
+  border: 3px solid $border;
+  border-top-color: $action;
+  border-radius: 50%;
+  animation: route-spin 0.8s linear infinite;
+}
+
+@keyframes route-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .route-state__spinner {
+    animation: none;
+  }
+}

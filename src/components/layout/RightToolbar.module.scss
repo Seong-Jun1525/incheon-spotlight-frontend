@@ -1,0 +1,39 @@
+// RightToolbar.module.scss — 지도 우측 컨트롤 툴바(RightToolbar) 스타일
+// - .toolbar로 아이콘 버튼을 세로로 쌓는 플로팅 패널 레이아웃을 정의
+// - 내부 button의 크기·호버·포커스 상태를 함께 지정
+@use '../../styles/variables' as *;
+
+.toolbar {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 8px;
+  border-radius: 14px;
+  border: 1px solid $border;
+  background: $surface;
+  box-shadow: $shadow-soft;
+
+  button {
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    border: 1px solid transparent;
+    background: $surface-muted;
+    color: $text-primary;
+    display: grid;
+    place-items: center;
+    cursor: pointer;
+    transition: color 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+
+    &:hover {
+      color: $primary;
+      border-color: $primary;
+      background: $primary-soft;
+    }
+
+    &:focus-visible {
+      outline: 2px solid $focus;
+      outline-offset: 2px;
+    }
+  }
+}

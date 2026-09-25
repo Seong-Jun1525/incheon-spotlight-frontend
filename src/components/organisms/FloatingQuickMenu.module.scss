@@ -1,0 +1,91 @@
+// FloatingQuickMenu.module.scss — FloatingQuickMenu 플로팅 아이콘 메뉴 스타일
+// - root: 세로 알약형 글래스 컨테이너, 640px 이하에서는 가로 배치로 전환
+// - circle/label: 원형 버튼과 호버 시 왼쪽에 나타나는 라벨 툴팁
+
+@use '../../styles/variables' as *;
+
+.root {
+  pointer-events: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 6px;
+  border-radius: 999px;
+  background: $overlay-bg;
+  backdrop-filter: blur(14px);
+  border: 1px solid $overlay-border;
+  box-shadow: $shadow-floating;
+}
+
+.circle {
+  position: relative;
+  width: 42px !important;
+  height: 42px !important;
+  min-height: 42px !important;
+  padding: 0 !important;
+  border-radius: 50% !important;
+  border: none;
+  background: $overlay-bg-strong;
+  color: $text-primary;
+  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.08);
+  overflow: visible;
+
+  &:hover {
+    background: rgba(56, 189, 248, 0.2);
+    color: $sky-600;
+    box-shadow: 0 6px 16px rgba(8, 105, 155, 0.18);
+
+    .label {
+      opacity: 1;
+      transform: translate3d(-4px, 0, 0);
+      pointer-events: none;
+    }
+  }
+}
+
+.ring {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+
+.label {
+  position: absolute;
+  right: calc(100% + 10px);
+  top: 50%;
+  transform: translate3d(0, -50%, 0);
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 700;
+  color: $ink;
+  background: rgba(255, 255, 255, 0.92);
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  box-shadow: 0 6px 18px rgba(15, 23, 42, 0.12);
+  opacity: 0;
+  transition: opacity 0.15s ease, transform 0.15s ease;
+  white-space: nowrap;
+}
+
+@media (max-width: 640px) {
+  .root {
+    flex-direction: row;
+    flex-wrap: nowrap;
+    gap: 6px;
+    padding: 4px;
+  }
+
+  .circle {
+    width: 44px !important;
+    height: 44px !important;
+    min-height: 44px !important;
+  }
+
+  .label {
+    display: none;
+  }
+}

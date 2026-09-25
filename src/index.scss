@@ -1,0 +1,139 @@
+// index.scss — 앱 전역 기본 스타일과 CSS 변수 정의
+// - 디자인 토큰을 색상·폰트 변수로 연결하고 다크 모드 색상 스킴 처리
+// - 언어별 기본 서체와 제목·본문·코드 등 기본 요소 타이포그래피 설정
+// - body/#root 레이아웃 초기화와 모바일 레이아웃 보정
+
+@use './styles/tokens';
+@use './styles/actions';
+@use './styles/variables' as *;
+
+:root {
+  --text: var(--text-secondary);
+  --text-h: var(--text-primary);
+  --bg: var(--bg-primary);
+  --code-bg: var(--gray-100);
+  --accent: var(--primary);
+  --accent-bg: var(--primary-soft);
+  --accent-border: var(--primary);
+  --social-bg: var(--surface);
+  --shadow: var(--shadow-soft);
+
+  --sans: 'Pretendard GOV', 'Pretendard', 'Noto Sans KR', system-ui, 'Segoe UI', sans-serif;
+  --heading: 'Pretendard GOV', 'Pretendard', 'Noto Sans KR', system-ui, 'Segoe UI', sans-serif;
+  --mono: ui-monospace, Consolas, monospace;
+
+  font: 16px/145% var(--sans);
+  letter-spacing: 0.01em;
+  color-scheme: light;
+  color: var(--text);
+  background: var(--bg);
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  @media (max-width: 1024px) {
+    font-size: 15px;
+  }
+}
+
+[data-theme='dark'] {
+  color-scheme: dark;
+}
+
+:root:lang(ja) {
+  --sans: 'Noto Sans JP', 'Yu Gothic', 'Hiragino Kaku Gothic ProN', system-ui, sans-serif;
+  --heading: var(--sans);
+}
+
+:root:lang(zh) {
+  --sans: 'Noto Sans SC', 'Microsoft YaHei', 'PingFang SC', system-ui, sans-serif;
+  --heading: var(--sans);
+}
+
+body {
+  margin: 0;
+  background: var(--bg-primary);
+  color: var(--text-secondary);
+}
+
+#root {
+  width: 100%;
+  max-width: none;
+  margin: 0;
+  min-height: 100svh;
+  min-height: 100dvh;
+  display: block;
+  text-align: initial;
+  border: none;
+  box-sizing: border-box;
+}
+
+h1,
+h2 {
+  font-family: var(--heading);
+  font-weight: 500;
+  color: var(--text-h);
+}
+
+h1 {
+  font-size: 56px;
+  letter-spacing: -1.68px;
+  margin: 32px 0;
+
+  @media (max-width: 1024px) {
+    font-size: 36px;
+    margin: 20px 0;
+  }
+}
+
+h2 {
+  font-size: 24px;
+  line-height: 118%;
+  letter-spacing: -0.24px;
+  margin: 0 0 8px;
+
+  @media (max-width: 1024px) {
+    font-size: 20px;
+  }
+}
+
+p {
+  margin: 0;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+@include phone-layout {
+  html,
+  body,
+  #root {
+    height: auto;
+    min-height: 100dvh;
+    overflow-x: clip;
+    overflow-y: visible;
+  }
+
+  input,
+  select,
+  textarea {
+    font-size: 16px;
+  }
+}
+
+code,
+.counter {
+  font-family: var(--mono);
+  display: inline-flex;
+  border-radius: 4px;
+  color: var(--text-h);
+}
+
+code {
+  font-size: 15px;
+  line-height: 135%;
+  padding: 4px 8px;
+  background: var(--code-bg);
+}

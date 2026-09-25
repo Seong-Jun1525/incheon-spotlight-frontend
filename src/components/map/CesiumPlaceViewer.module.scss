@@ -1,0 +1,204 @@
+// CesiumPlaceViewer.module.scss — Cesium 3D 지도 뷰어(CesiumPlaceViewer) 스타일
+// - .wrap/.canvas로 뷰어 컨테이너를 잡고 :global로 Cesium 위젯·툴바 버튼 스타일을 덮어씀
+// - .wheelHint/.zoomControls/.overlay로 휠 활성화 안내, 확대·축소 버튼, 좌표 없음 안내를 배치
+// - .legend와 .attractionIcon/.foodIcon/.lodgingIcon/.routeLine으로 마커 색 범례를 정의
+@use '../../styles/variables' as *;
+
+.wheelHint {
+  position: absolute;
+  z-index: 3;
+  left: 16px;
+  bottom: 34px;
+  max-width: calc(100% - 80px);
+  border: 1px solid $border;
+  border-radius: 8px;
+  background: $surface;
+  color: $text-secondary;
+  padding: 8px 12px;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.wrap {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  border-radius: 18px;
+  overflow: hidden;
+  border: 1px solid $border;
+  background: $gray-100;
+  box-shadow: $shadow-soft;
+}
+
+.canvas {
+  width: 100%;
+  height: 100%;
+  touch-action: none;
+  overscroll-behavior: contain;
+
+  :global(.cesium-viewer),
+  :global(.cesium-viewer-cesiumWidgetContainer),
+  :global(.cesium-widget),
+  :global(.cesium-widget canvas) {
+    width: 100%;
+    height: 100%;
+  }
+
+  :global(.cesium-viewer-toolbar) {
+    right: 12px;
+    top: 12px;
+  }
+
+  :global(.cesium-button) {
+    background: $glass-bg;
+    border-color: $border;
+    color: $text-primary;
+    border-radius: 10px;
+  }
+
+  :global(.cesium-button:hover) {
+    background: $primary-soft;
+    border-color: $primary;
+    color: $primary-strong;
+  }
+}
+
+.zoomControls {
+  position: absolute;
+  right: 12px;
+  top: 54px;
+  z-index: 5;
+  display: grid;
+  gap: 6px;
+
+  button {
+    display: grid;
+    place-items: center;
+    width: 36px;
+    height: 36px;
+    padding: 0;
+    border: 1px solid $border;
+    border-radius: 10px;
+    background: $glass-bg-strong;
+    color: $text-primary;
+    box-shadow: $shadow-soft;
+    cursor: pointer;
+
+    &:hover:not(:disabled) {
+      border-color: $primary;
+      background: $primary-soft;
+      color: $primary-strong;
+    }
+
+    &:focus-visible { outline: 3px solid rgb(229 25 55 / 24%); }
+    &:disabled { opacity: 0.55; cursor: wait; }
+  }
+}
+
+.overlay {
+  position: absolute;
+  left: 16px;
+  bottom: 96px;
+  z-index: 2;
+  padding: 10px 14px;
+  border-radius: 12px;
+  background: $glass-bg;
+  border: 1px solid $border;
+  box-shadow: $shadow-soft;
+
+  p {
+    margin: 0;
+    font-size: 13px;
+    color: $text-secondary;
+  }
+}
+
+.legend {
+  position: absolute;
+  left: 16px;
+  top: 16px;
+  z-index: 3;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 12px;
+  max-width: min(520px, calc(100% - 96px));
+  padding: 9px 12px;
+  border: 1px solid $glass-border;
+  border-radius: 13px;
+  background: $glass-bg;
+  box-shadow: $shadow-soft;
+  backdrop-filter: blur(10px);
+
+  > span {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    color: $text-secondary;
+    font-size: 11px;
+    font-weight: 700;
+  }
+}
+
+.legendIcon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 22px;
+  height: 22px;
+  border-radius: 999px;
+  color: #fff;
+  box-shadow: 0 0 0 2px #fff;
+}
+
+.attractionIcon { background: #e51937; }
+.foodIcon { background: #ea580c; }
+.lodgingIcon { background: #1d4ed8; }
+.routeLine {
+  display: inline-block;
+  width: 22px;
+  height: 6px;
+  border-radius: 999px;
+  background: #e51937;
+  box-shadow: 0 0 0 2px #fff;
+}
+
+.status {
+  position: absolute;
+  right: 14px;
+  bottom: 40px;
+  z-index: 3;
+  max-width: min(280px, calc(100% - 28px));
+  padding: 8px 11px;
+  border: 1px solid $border;
+  border-radius: 11px;
+  background: $glass-bg;
+  color: $text-secondary;
+  font-size: 11px;
+  box-shadow: $shadow-soft;
+}
+
+@media (max-width: 600px) {
+  .wheelHint {
+    display: none;
+  }
+
+  .zoomControls button {
+    width: 44px;
+    height: 44px;
+  }
+
+  .canvas :global(.cesium-button) {
+    min-width: 44px;
+    min-height: 44px;
+  }
+
+  .legend {
+    left: 10px;
+    top: 10px;
+    max-width: calc(100% - 70px);
+    gap: 6px 9px;
+    padding: 7px 9px;
+  }
+}

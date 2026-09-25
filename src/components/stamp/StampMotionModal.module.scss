@@ -1,0 +1,156 @@
+// StampMotionModal.module.scss — 스탬프 획득 모달·3D 씬 영역 스타일
+@use '../../styles/variables' as *;
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 80;
+  display: grid;
+  place-items: center;
+  padding: 16px;
+  background: rgb(23 33 48 / 42%);
+}
+
+.dialog {
+  width: min(540px, 100%);
+  max-height: min(92vh, 820px);
+  overflow: auto;
+  padding: 28px 24px;
+  border-radius: 10px;
+  background: $surface;
+  color: $text-primary;
+  border: 1px solid $border-strong;
+}
+
+.eyebrow {
+  margin: 0 0 6px;
+  color: $primary;
+  font-size: 12px;
+  font-weight: 750;
+}
+
+.dialog h2 {
+  margin: 0 0 8px !important;
+  font-size: 1.4rem !important;
+}
+
+.dialog p {
+  margin: 0 0 16px;
+  color: $text-secondary;
+}
+
+.stage {
+  position: relative;
+  width: 100%;
+  height: min(260px, 42vw);
+  margin: 0 0 16px;
+  border-radius: 8px;
+  overflow: hidden;
+  background: $surface-muted;
+  border: 1px solid $border;
+}
+
+.stageCaption {
+  position: absolute;
+  left: 50%;
+  bottom: 12px;
+  transform: translateX(-50%);
+  max-width: calc(100% - 24px);
+  padding: 7px 11px;
+  border: 1px solid rgb(255 255 255 / 45%);
+  border-radius: 999px;
+  background: rgb(18 35 59 / 78%);
+  color: #fff;
+  font-size: 0.74rem;
+  font-weight: 750;
+  line-height: 1.2;
+  text-align: center;
+  white-space: nowrap;
+  pointer-events: none;
+  backdrop-filter: blur(8px);
+}
+
+.placeHint {
+  margin: 0 0 16px !important;
+  font-size: 0.9rem;
+}
+
+.stamps {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 12px;
+  margin: 0 0 16px;
+  padding: 0;
+  list-style: none;
+}
+
+.stamp {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: 12px 8px;
+  text-align: center;
+  border: 1px solid $border;
+  border-radius: 8px;
+}
+
+.clear {
+  padding: 10px 12px;
+  border-radius: 6px;
+  background: $primary-soft;
+  color: $primary-strong;
+  font-weight: 700;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.actions button,
+.actions a {
+  min-height: 44px;
+  padding: 0 16px;
+  border-radius: 6px;
+  display: inline-flex;
+  align-items: center;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.actions button {
+  border: 1px solid $action;
+  background: $action;
+  color: $text-on-accent;
+  cursor: pointer;
+}
+
+.actions button:disabled {
+  opacity: 0.55;
+  cursor: wait;
+}
+
+.actions a {
+  border: 1px solid $border-strong;
+  color: $text-primary;
+}
+
+.later {
+  border-color: $border-strong !important;
+  background: transparent !important;
+  color: $text-primary !important;
+}
+
+.actions button:focus-visible,
+.actions a:focus-visible {
+  outline: 2px solid $focus;
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .actions button:disabled {
+    cursor: pointer;
+  }
+}

@@ -1,0 +1,77 @@
+// MobileExploreSheet.module.scss — 모바일 바텀 시트(MobileExploreSheet) 스타일
+// - .sheet로 화면 하단 고정 시트를, .snap_peek으로 최소 높이 상태 변형을 정의
+// - .handleArea/.handle/.handleHint로 드래그 손잡이와 안내 문구를 배치
+// - .body는 시트 내부 스크롤 영역을 담당
+@use '../../styles/variables' as *;
+
+.sheet {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-height: 78vh;
+  border-radius: 18px 18px 0 0;
+  border: 1px solid $border;
+  background: $surface-soft;
+  box-shadow: 0 -8px 28px rgb(20 28 34 / 12%);
+  overflow: hidden;
+  touch-action: none;
+  transition: height 220ms ease;
+
+  @media (prefers-reduced-motion: reduce) {
+    transition: none;
+  }
+}
+
+.handleArea {
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 12px 6px;
+  cursor: grab;
+  user-select: none;
+  touch-action: none;
+
+  &:active {
+    cursor: grabbing;
+  }
+}
+
+.handle {
+  width: 40px;
+  height: 4px;
+  border-radius: 999px;
+  background: $border-strong;
+}
+
+.handleHint {
+  font-size: 11px;
+  letter-spacing: 0.02em;
+  color: $text-muted;
+}
+
+.body {
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+
+  /* LeftExplorePanel이 시트 안에서 꽉 차도록 */
+  > * {
+    height: 100%;
+    max-height: none;
+    border: 0;
+    border-radius: 0;
+    box-shadow: none;
+    background: transparent;
+  }
+}
+
+.snap_peek {
+  .body {
+    pointer-events: none;
+    opacity: 0.35;
+  }
+}

@@ -1,0 +1,186 @@
+// RoutePlanner.module.scss — 길찾기 패널(RoutePlanner) 스타일
+// - .planner/.head로 패널 카드와 출발지·도착지 헤더를 구성
+// - .modes는 이동수단 토글 버튼, .timeMachine/.timeFields는 도착·출발 시각 예측 입력 영역
+// - .result로 거리·소요시간 결과를, .notice/.warning/.error로 안내 문구 톤을 구분
+@use '../../styles/variables' as *;
+
+.planner {
+  display: grid;
+  gap: 10px;
+  margin-top: 16px;
+  padding: 14px;
+  border: 1px solid $border;
+  border-radius: 15px;
+  background: $surface-muted;
+
+  small {
+    color: $text-muted;
+    font-size: 10px;
+    line-height: 1.45;
+  }
+}
+
+.head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  color: $primary;
+
+  div { display: grid; gap: 2px; }
+  span { color: $text-muted; font-size: 10px; font-weight: 700; }
+  strong { color: $text-primary; font-size: 13px; line-height: 1.4; }
+}
+
+.modes {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 6px;
+
+  button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    min-height: 36px;
+    border: 1px solid $border;
+    border-radius: 10px;
+    background: $surface;
+    color: $text-secondary;
+    cursor: pointer;
+
+    &[aria-pressed='true'] {
+      border-color: $primary;
+      background: $primary-soft;
+      color: $primary-strong;
+      font-weight: 700;
+    }
+  }
+}
+
+.timeMachine {
+  display: grid;
+  gap: 9px;
+  padding: 10px;
+  border: 1px solid $border;
+  border-radius: 11px;
+  background: $surface;
+}
+
+.timeMachineToggle {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  cursor: pointer;
+
+  input { margin-top: 3px; accent-color: $primary; }
+
+  > span {
+    display: grid;
+    gap: 3px;
+  }
+
+  b {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    color: $text-primary;
+    font-size: 12px;
+  }
+
+  small { color: $text-muted; font-size: 10px; }
+}
+
+.timeFields {
+  display: grid;
+  grid-template-columns: minmax(90px, 0.75fr) minmax(0, 1.25fr);
+  gap: 7px;
+
+  label { display: grid; gap: 4px; }
+  span { color: $text-muted; font-size: 10px; font-weight: 700; }
+
+  select,
+  input {
+    min-width: 0;
+    height: 34px;
+    padding: 0 7px;
+    border: 1px solid $border;
+    border-radius: 8px;
+    background: $surface;
+    color: $text-primary;
+    font: inherit;
+    font-size: 10px;
+  }
+}
+
+.hint {
+  margin: 0;
+  color: $warning;
+  font-size: 10px;
+}
+
+.locationButton,
+.clear {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  min-height: 38px;
+  border: 1px solid $action;
+  border-radius: 10px;
+  background: $action;
+  color: $text-on-accent;
+  font-weight: 700;
+  cursor: pointer;
+
+  &:disabled { opacity: 0.55; cursor: wait; }
+}
+
+.loading,
+.error,
+.notice,
+.warning {
+  margin: 0;
+  font-size: 11px;
+  line-height: 1.5;
+}
+
+.loading,
+.notice { color: $text-secondary; }
+.error { color: $danger; }
+.warning { color: $warning; }
+
+.result {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+
+  > div {
+    display: grid;
+    gap: 2px;
+    padding: 9px;
+    border-radius: 10px;
+    background: $surface;
+
+    span { color: $text-muted; font-size: 10px; }
+    strong { color: $text-primary; font-size: 13px; }
+  }
+
+  p,
+  ol,
+  .clear { grid-column: 1 / -1; }
+
+  ol {
+    margin: 0;
+    padding-left: 19px;
+    color: $text-secondary;
+    font-size: 11px;
+    line-height: 1.55;
+  }
+}
+
+.clear {
+  border-color: $border-strong;
+  background: $surface;
+  color: $text-primary;
+}

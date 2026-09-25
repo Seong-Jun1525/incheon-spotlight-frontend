@@ -1,0 +1,94 @@
+// WeatherBadge.module.scss — 지도 위 미니 날씨 배지(WeatherBadge) 스타일
+// - .badge로 반투명 알약형 배지 레이아웃을, .icon으로 날씨 아이콘 영역을 잡음
+// - .body 안의 .temp/.label/.dust로 온도·하늘상태·미세먼지 텍스트를 구분
+@use '../../styles/variables' as *;
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+  max-width: 100%;
+  padding: 8px 12px;
+  box-sizing: border-box;
+  border-radius: 14px;
+  border: 1px solid $border;
+  background: $surface;
+  box-shadow: $shadow-soft;
+  color: $text-primary;
+  animation: weatherIn 360ms ease both;
+
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
+  }
+}
+
+.icon {
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 10px;
+  color: #c96d00;
+  background: $primary-soft;
+}
+
+.body {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 4px 8px;
+  min-width: 0;
+  font-size: 12px;
+  line-height: 1.2;
+
+  strong {
+    font-size: 11px;
+    font-weight: 700;
+    color: $text-secondary;
+  }
+}
+
+.temp {
+  font-size: 14px;
+  font-weight: 800;
+  color: $text-primary;
+}
+
+.label {
+  font-weight: 650;
+  color: $primary-strong;
+}
+
+.dust {
+  color: $text-muted;
+  font-size: 11px;
+
+  em {
+    font-style: normal;
+    font-weight: 700;
+    color: $text-primary;
+  }
+}
+
+@keyframes weatherIn {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 760px) {
+  .badge {
+    padding: 7px 10px;
+  }
+
+  .dust {
+    display: none;
+  }
+}

@@ -1,0 +1,51 @@
+// StatusBadge.module.scss — 방문 인증 상태 뱃지 톤(확인 중/완료/반려)
+@use '../../styles/variables' as *;
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 28px;
+  padding: 0 10px;
+  border-radius: 999px;
+  border: 1px solid $border;
+  background: $surface-muted;
+  color: $text-secondary;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.mark {
+  width: 8px;
+  height: 8px;
+  border-radius: 99px;
+  background: currentColor;
+}
+
+.pending {
+  color: #7a4a12;
+  background: $warning-soft;
+  border-color: #f0d3a8;
+}
+
+.needs_revision {
+  color: #7a4a12;
+  background: $warning-soft;
+  border-color: #f0d3a8;
+}
+
+.approved {
+  color: $primary-strong;
+  background: $primary-soft;
+  border-color: #c5d8f2;
+}
+
+.rejected {
+  color: $danger;
+  background: $danger-soft;
+  border-color: $danger-border;
+}
+
+.none {
+  color: $text-muted;
+}

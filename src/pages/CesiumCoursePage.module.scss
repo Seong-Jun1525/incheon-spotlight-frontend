@@ -1,0 +1,230 @@
+// CesiumCoursePage.module.scss — 코스 경로 지도 화면 스타일
+// - 좌측 코스 패널과 우측 지도로 나누는 2단 그리드 레이아웃 정의
+// - 이동 수단 토글, 경로 요약, 정류장 목록과 경고·오류 문구 스타일 포함
+
+@use '../styles/variables' as *;
+
+.page {
+  display: grid;
+  grid-template-columns: minmax(300px, 390px) minmax(0, 1fr);
+  gap: 18px;
+  width: 100%;
+  min-height: 100vh;
+  min-height: 100dvh;
+  padding: 18px;
+  box-sizing: border-box;
+  background: $bg-primary;
+}
+
+.side {
+  min-height: 0;
+  overflow: auto;
+  padding: 18px;
+  border: 1px solid $border;
+  border-radius: 20px;
+  background: $surface;
+  box-shadow: $shadow-panel;
+}
+
+.sideTop {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.back {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: $primary-strong;
+  font-size: 13px;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.head {
+  margin-top: 20px;
+
+  p {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin: 0 0 6px;
+    color: $primary;
+    font-size: 11px;
+    font-weight: 800;
+  }
+
+  h1 { margin: 0 0 8px; color: $text-primary; font-size: 25px; }
+  span { color: $text-secondary; font-size: 13px; line-height: 1.55; }
+}
+
+.mode {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 7px;
+  margin: 18px 0 12px;
+
+  button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    min-height: 40px;
+    border: 1px solid $border;
+    border-radius: 11px;
+    background: $surface;
+    color: $text-secondary;
+    cursor: pointer;
+
+    &[aria-pressed='true'] {
+      border-color: $primary;
+      background: $primary-soft;
+      color: $primary-strong;
+      font-weight: 700;
+    }
+  }
+}
+
+.optimize {
+  display: flex;
+  align-items: flex-start;
+  gap: 9px;
+  margin: -4px 0 12px;
+  padding: 10px;
+  border: 1px solid $border;
+  border-radius: 11px;
+  background: $primary-soft;
+  cursor: pointer;
+
+  input { margin-top: 3px; accent-color: $primary; }
+
+  span { display: grid; gap: 2px; }
+  strong { color: $primary-strong; font-size: 12px; }
+  small { color: $text-secondary; font-size: 10px; line-height: 1.4; }
+}
+
+.orderLabel {
+  margin: 12px 0 7px;
+  color: $primary-strong;
+  font-size: 11px;
+  font-weight: 800;
+}
+
+.summary {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-bottom: 14px;
+
+  div {
+    display: grid;
+    gap: 3px;
+    padding: 10px;
+    border-radius: 11px;
+    background: $surface-muted;
+    span { color: $text-muted; font-size: 10px; }
+    strong { color: $text-primary; font-size: 14px; }
+  }
+
+  p { grid-column: 1 / -1; }
+}
+
+.message,
+.error,
+.warning,
+.source {
+  margin: 7px 0;
+  font-size: 11px;
+  line-height: 1.5;
+}
+
+.message,
+.source { color: $text-muted; }
+.error { color: $danger; }
+.warning { color: $warning; }
+
+.stops {
+  display: grid;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+
+  button {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    padding: 10px;
+    border: 1px solid $border;
+    border-radius: 13px;
+    background: $surface;
+    text-align: left;
+    cursor: pointer;
+
+    &:hover { border-color: $primary; background: $primary-soft; }
+  }
+
+  b {
+    display: grid;
+    flex: 0 0 30px;
+    place-items: center;
+    width: 30px;
+    height: 30px;
+    border-radius: 999px;
+    background: $action;
+    color: $text-on-accent;
+  }
+
+  span { display: grid; gap: 3px; min-width: 0; }
+  strong { color: $text-primary; font-size: 13px; }
+  small { overflow: hidden; color: $text-muted; font-size: 10px; text-overflow: ellipsis; white-space: nowrap; }
+}
+
+.map { min-width: 0; min-height: 520px; }
+
+.notFound {
+  display: grid;
+  place-content: center;
+  min-height: 100vh;
+  text-align: center;
+}
+
+@media (max-width: 900px) {
+  .page {
+    grid-template-columns: 1fr;
+    padding: 10px;
+  }
+
+  .side { max-height: none; }
+  .map { height: 58vh; min-height: 380px; }
+}
+
+@include phone-layout {
+  .page {
+    display: flex;
+    flex-direction: column;
+    padding: 0 0 16px;
+    gap: 0;
+  }
+
+  .side {
+    order: 1;
+    max-height: none;
+    overflow: visible;
+    border-radius: 0;
+    box-shadow: none;
+    padding: 14px;
+  }
+
+  .map {
+    order: 2;
+    height: 38vh;
+    min-height: 220px;
+    max-height: 320px;
+    margin: 0 12px;
+  }
+}

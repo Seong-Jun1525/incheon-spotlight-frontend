@@ -1,0 +1,65 @@
+// NoticeList.module.scss — 공지사항 목록(NoticeList) 스타일
+// - .root/.title로 카드 컨테이너와 제목을 구성
+// - .list/.row/.btn으로 공지 행 버튼 레이아웃을 정의
+// - .text/.date로 공지 문구와 날짜 정렬을 처리
+@use '../../styles/variables' as *;
+
+.root {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+}
+
+.title {
+  margin: 0 0 4px;
+  font-size: 14px;
+  font-weight: 800;
+  color: $ink;
+}
+
+.list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.btn {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  width: 100%;
+  text-align: left;
+  font: inherit;
+  font-size: 12px;
+  color: $ink-soft;
+  background: rgba(255, 255, 255, 0.78);
+  border: 1px solid transparent;
+  border-radius: 8px;
+  padding: 6px 8px;
+  cursor: pointer;
+  transition: background 0.12s ease;
+
+  &:hover {
+    background: rgba(224, 242, 254, 0.92);
+    border-color: rgba(14, 165, 233, 0.2);
+  }
+}
+
+.text {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.date {
+  flex-shrink: 0;
+  font-size: 11px;
+  color: #64748b;
+}

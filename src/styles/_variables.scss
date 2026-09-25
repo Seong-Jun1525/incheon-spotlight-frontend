@@ -1,0 +1,134 @@
+// _variables.scss — 컴포넌트 SCSS에서 쓰는 시맨틱 색·간격 별칭
+// Semantic aliases → CSS custom properties (see _tokens.scss).
+// Primitive hex values live in the light/dark token maps so runtime theme
+// switching can remap meaning without rewriting component styles.
+
+$white: var(--white);
+
+$gray-50: var(--gray-50);
+$gray-100: var(--gray-100);
+$gray-200: var(--gray-200);
+$gray-300: var(--gray-300);
+$gray-400: var(--gray-400);
+
+// Background
+$bg-primary: var(--bg-primary);
+$bg-secondary: var(--bg-secondary);
+$bg-warm: var(--bg-warm);
+
+// Surface
+$surface: var(--surface);
+$surface-soft: var(--surface-soft);
+$surface-muted: var(--surface-muted);
+$surface-strong: var(--surface-strong);
+
+// Typography
+$text-primary: var(--text-primary);
+$text-secondary: var(--text-secondary);
+$text-muted: var(--text-muted);
+$text-on-accent: var(--text-on-accent);
+
+$font-size-display: clamp(1.5rem, 2.4vw, 2rem);
+$font-size-title: 1.5rem;
+$font-size-subtitle: 1.125rem;
+$font-size-body: 1rem;
+$font-size-caption: 0.8125rem;
+$line-height-display: 1.28;
+$line-height-body: 1.65;
+
+// Public-service blue (KRDS-inspired, not an official KRDS implementation)
+$primary: var(--primary);
+$primary-hover: var(--primary-hover);
+$primary-strong: var(--primary-strong);
+$primary-soft: var(--primary-soft);
+
+// Filled action (keeps white-on-blue contrast in both modes)
+$action: var(--action);
+$action-hover: var(--action-hover);
+
+// Selected/action blue
+$accent: var(--accent);
+$accent-hover: var(--accent-hover);
+$accent-soft: var(--accent-soft);
+$red: $accent;
+$red-hover: $accent-hover;
+$red-soft: $accent-soft;
+
+// Brand — YELLOW 106C (발견)
+$yellow: var(--yellow);
+$yellow-soft: var(--yellow-soft);
+$yellow-text: var(--yellow-text);
+
+// Brand — PINK 218C (감성)
+$pink: var(--pink);
+$pink-hover: var(--pink-hover);
+$pink-soft: var(--pink-soft);
+$pink-text: var(--pink-text);
+
+// Landmark
+$landmark: $primary;
+$landmark-soft: $primary-soft;
+$landmark-active: $accent;
+
+// Map
+$map-default: var(--map-default);
+$map-side: var(--map-side);
+$map-inactive: var(--map-inactive);
+$map-hover: $yellow;
+$map-selected: $accent;
+$water: var(--water);
+
+// UI
+$border: var(--border);
+$border-strong: var(--border-strong);
+$border-soft: $border;
+$focus: var(--focus);
+
+$shadow-soft: var(--shadow-soft);
+$shadow-panel: var(--shadow-panel);
+$shadow-floating: var(--shadow-floating);
+
+$overlay-bg: var(--glass-bg);
+$overlay-bg-strong: var(--glass-bg-strong);
+$overlay-border: var(--glass-border);
+$overlay-scrim: var(--overlay-scrim);
+$glass-bg-strong: $overlay-bg-strong;
+
+$danger: var(--danger);
+$danger-soft: var(--danger-soft);
+$danger-border: var(--danger-border);
+$warning: var(--warning);
+$warning-soft: var(--warning-soft);
+
+// Accents (alias)
+$accent-landmark: $landmark;
+$accent-cta: $primary;
+$accent-success: $primary-strong;
+
+// Legacy aliases
+$ink: $text-primary;
+$ink-soft: $text-secondary;
+$incheon-sky: $yellow;
+$incheon-sea: $primary;
+$incheon-future: $primary;
+$incheon-sunset: $accent;
+$incheon-stone: $text-muted;
+
+$sky-500: $yellow;
+$sky-600: $primary;
+$sea-900: $primary-strong;
+
+$glass-border: $border;
+$glass-bg: $surface;
+
+// Viewport: desktop (1100px+) stays as authored.
+// Phone = typical iPhone/Galaxy portrait, or landscape phones with a short viewport.
+// Tablet keeps the 3D stage; do not use this mixin to restyle laptops.
+$bp-phone: 767px;
+$bp-tablet-max: 1099px;
+
+@mixin phone-layout {
+  @media (max-width: $bp-phone), (max-width: $bp-tablet-max) and (max-height: 540px) {
+    @content;
+  }
+}

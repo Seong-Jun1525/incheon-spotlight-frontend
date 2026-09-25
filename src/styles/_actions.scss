@@ -1,0 +1,30 @@
+// _actions.scss — 위험(삭제) 버튼 등 data-intent 액션 색을 전역으로 통일
+@use 'variables' as *;
+
+// Explicit intent keeps destructive controls consistent across page modules.
+#root button[data-intent='danger'] {
+  border: 1px solid var(--danger-action);
+  background-color: var(--danger-action);
+  color: $text-on-accent;
+  transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+
+  &:hover:not(:disabled) {
+    border-color: var(--danger-action-hover);
+    background-color: var(--danger-action-hover);
+    color: $text-on-accent;
+  }
+
+  &:focus-visible {
+    outline: 2px solid $focus;
+    outline-offset: 3px;
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    transition: none;
+  }
+}
